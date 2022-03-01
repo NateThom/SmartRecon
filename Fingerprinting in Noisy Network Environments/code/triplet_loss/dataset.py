@@ -28,40 +28,163 @@ class Triplet_Dataset(Dataset):
         csv_filename = os.listdir(args.dataset_dir+args.dataset)[0]
 
         # Read the labels from the specified file
-        inputs = pd.read_csv(args.dataset_dir+args.dataset+csv_filename,
+        self.inputs = pd.read_csv(args.dataset_dir+args.dataset+csv_filename,
                                   names=args.dataset_column_names)
 
-        self.total_dataset_size = len(inputs.index)
-        inputs = inputs[int(self.total_dataset_size*lower_bound):int(self.total_dataset_size*upper_bound)]
+        self.total_dataset_size = len(self.inputs.index)
+        self.inputs = self.inputs[int(self.total_dataset_size*lower_bound):int(self.total_dataset_size*upper_bound)]
 
         # print the total number of samples in each data set and the number of samples per device in each data set
         if args.print_num_samples_bool:
-            print(f"*** Parameters in {args.dataset}: {len(inputs.index)} ***")
-            for device_name in inputs["class"].unique():
-                num_samples = len((inputs[inputs["class"] == device_name]).index)
+            print(f"*** Parameters in {args.dataset}: {len(self.inputs.index)} ***")
+            for device_name in self.inputs["class"].unique():
+                num_samples = len((self.inputs[self.inputs["class"] == device_name]).index)
                 print(
-                    f"*** Samples for device: {device_name} in {args.dataset}: {num_samples} ({num_samples / inputs.shape[0]}) ***")
+                    f"*** Samples for device: {device_name} in {args.dataset}: {num_samples} ({num_samples / self.inputs.shape[0]}) ***")
 
         # y is a dataframe of only the class column and the values will be converted to numeric representation
         # Tokenize the values in y so that they have a numeric representation
         counter = 0
-        y_temp = inputs['class'].tolist()
+        y_temp = self.inputs['class'].tolist()
         class_label_dict = {}
-        for unique_value in sorted(inputs['class'].unique()):
+        for unique_value in sorted(self.inputs['class'].unique()):
             class_label_dict[counter] = unique_value
-            for index, value in enumerate(inputs['class']):
+            for index, value in enumerate(self.inputs['class']):
                 if value == unique_value:
                     y_temp[index] = counter
             counter += 1
-        inputs["class"] = y_temp
-        labels_numeric = inputs['class'].unique()
+        self.inputs["class"] = y_temp
+        labels_numeric = self.inputs['class'].unique()
 
-        self.x = {}
-        self.y = {}
-        self.x["train"] = []
-        self.y["train"] = []
+        dataset_shuffled = self.inputs.sample(frac=1)
+        temp_device
 
-        dataset_shuffled = inputs.sample(frac=1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        "?"
+
+        ';'
         for device_name in labels_numeric:
             # Get the part of the dataset which pertains to the current device
             dataset_current_device = dataset_shuffled[dataset_shuffled['class'] == device_name]
