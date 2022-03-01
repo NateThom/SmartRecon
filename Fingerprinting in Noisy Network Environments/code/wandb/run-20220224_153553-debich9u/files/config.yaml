@@ -1,0 +1,21 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.12.10
+    code_path: code/Fingerprinting in Noisy Network Environments/code/hash_learning_5_fold_cross_val.py
+    framework: sklearn
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.9.7
+    start_time: 1645745753
+    t:
+      1:
+      - 5
+      2:
+      - 5
+      4: 3.9.7
+      5: 0.12.10
+      8:
+      - 5

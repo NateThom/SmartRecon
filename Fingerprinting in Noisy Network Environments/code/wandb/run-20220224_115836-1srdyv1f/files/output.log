@@ -1,0 +1,32 @@
+Select data set to run:
+Options:
+1: ['../data/batyr_modified/', 'Batyr Modified']
+2: ['../data/batyr_modified_categories/', 'Batyr Modified Categories']
+3: ['../data/hashes_cleaned/', 'Cleaned Hashes']
+4: ['../data/hashes_uncleaned', 'Uncleaned Hashes']
+5: ['../data/hashes_cleaned_noRing/', 'Cleaned Hashes No Ring']
+6: ['../data/hashes_cleaned_noRing_noTpBulb/', 'Cleaned Hashes No TP Bulb']
+Selection: __________
+Print number of samples per device? (Enter either 0 or 1)
+Selection: __________
+Use only a small percentage of the data set for prototyping? (Enter either 0 or 1
+
+Selection: *** Begin Processing ../data/batyr_modified/modified-per-packet-hashes-cleaned Dataset ***
+*** Parameters in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 1547089 ***
+*** Samples for device: Tenvis_Cam in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 12839 (0.00829881150987435%) ***
+*** Samples for device: Minger_LightStrip in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 29235 (0.018896779693993043%) ***
+*** Samples for device: Wans_Cam in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 346463 (0.2239450994739152%) ***
+*** Samples for device: LaCrosse_AlarmClock in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 27231 (0.017601443743701883%) ***
+*** Samples for device: Lumiman_Bulb900 in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 110878 (0.07166879216386388%) ***
+*** Samples for device: Lumiman_Bulb600 in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 110451 (0.0713927899429186%) ***
+*** Samples for device: Smart_Lamp in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 109296 (0.0706462265583945%) ***
+*** Samples for device: Renpho_SmartPlug in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 110317 (0.07130617566280932%) ***
+*** Samples for device: Gosuna_LightBulb in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 109112 (0.07052729351705041%) ***
+*** Samples for device: Goumia_Coffemaker in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 19339 (0.01250025047039957%) ***
+*** Samples for device: oossxx_SmartPlug in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 110590 (0.07148263609915137%) ***
+*** Samples for device: Ocean_Radio in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 60339 (0.03900163468294326%) ***
+*** Samples for device: Gosuna_Socket in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 110205 (0.07123378163764334%) ***
+*** Samples for device: Chime_Doorbell in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 11169 (0.007219364884631718%) ***
+*** Samples for device: Smart_LightStrip in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 110625 (0.07150525923201574%) ***
+*** Samples for device: D-Link_Cam936L in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 23574 (0.015237649546987924%) ***
+*** Samples for device: Lumiman_SmartPlug in ../data/batyr_modified/modified-per-packet-hashes-cleaned: 110354 (0.07133009154612308%) ***

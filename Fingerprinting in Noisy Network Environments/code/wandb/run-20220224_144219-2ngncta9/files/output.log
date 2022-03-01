@@ -1,0 +1,57 @@
+Select data set to run:
+Options:
+1: ['../data/clddr/', 'CLDDR']
+2: ['../data/clddr_categories/', 'CLDDR Categories']
+3: ['../data/clddr_random_noise_devices/', 'CLDDR Random Noise']
+4: ['../data/clddr_random_noise_categories/', 'CLDDR Random Noise Categories']
+5: ['../data/clddr_random_noise_devices_no_Wans/', 'CLDDR Random Noise No Wans']
+Selection:
+__________
+
+Selection: Selection:
+__________
+
+Selection: Selection: Selection:
+*** Begin Processing ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv Dataset ***
+*** Parameters in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 1286575 ***
+*** Samples for device: other in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 85950 (0.0668052775780658%) ***
+*** Samples for device: Tenvis_Cam in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 12838 (0.009978431105843033%) ***
+*** Samples for device: Minger_LightStrip in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 29235 (0.022723121465907544%) ***
+*** Samples for device: LaCrosse_AlarmClock in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 27231 (0.021165497541923324%) ***
+*** Samples for device: Lumiman_Bulb900 in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 110878 (0.08618075121932262%) ***
+*** Samples for device: Lumiman_Bulb600 in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 110451 (0.08584886228941181%) ***
+*** Samples for device: Smart_Lamp in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 109296 (0.08495112993801372%) ***
+*** Samples for device: Renpho_SmartPlug in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 110317 (0.08574470979150069%) ***
+*** Samples for device: Gosuna_LightBulb in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 109112 (0.0848081145677477%) ***
+*** Samples for device: Goumia_Coffemaker in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 19339 (0.015031381769426578%) ***
+*** Samples for device: oossxx_SmartPlug in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 110590 (0.08595690107455842%) ***
+*** Samples for device: Ocean_Radio in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 60339 (0.046898937100441095%) ***
+*** Samples for device: Gosuna_Socket in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 110205 (0.08565765695742572%) ***
+*** Samples for device: Chime_Doorbell in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 11169 (0.008681188426636613%) ***
+*** Samples for device: Smart_LightStrip in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 110625 (0.08598410508520685%) ***
+*** Samples for device: D-Link_Cam936L in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 23574 (0.01832306705788625%) ***
+*** Samples for device: Lumiman_SmartPlug in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 110354 (0.08577346831704331%) ***
+*** Samples for device: itTiot_Cam in ../data/clddr_random_noise_devices_no_Wans/clddr_random_noise_devices_no_Wans.csv: 25072 (0.019487398713638925%) ***
+*** Dataset Loaded ***
+*** Begin Generating Cross Folds ***
+*** Finished Generating Cross Folds ***
+*** Begin Training 0 ***
+1029267
+*** Processing Time: 384.1141016483307 ***
+*** 0 Trained ***
+*** Begin Training 1 ***
+1029260
+*** Processing Time: 235.40143871307373 ***
+*** 1 Trained ***
+*** Begin Training 2 ***
+1029260
+*** Processing Time: 291.7616493701935 ***
+*** 2 Trained ***
+*** Begin Training 3 ***
+1029260
+*** Processing Time: 317.3220160007477 ***
+*** 3 Trained ***
+*** Begin Training 4 ***
+1029254
+*** Processing Time: 421.8921797275543 ***
+*** 4 Trained ***

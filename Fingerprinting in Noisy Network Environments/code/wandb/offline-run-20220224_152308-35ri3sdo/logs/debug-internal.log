@@ -1,0 +1,79 @@
+2022-02-24 15:23:08,594 INFO    MainThread:55349 [internal.py:wandb_internal():89] W&B internal server running at pid: 55349, started at: 2022-02-24 15:23:08.594213
+2022-02-24 15:23:08,595 DEBUG   HandlerThread:55349 [handler.py:handle_request():131] handle_request: run_start
+2022-02-24 15:23:08,596 INFO    WriterThread:55349 [datastore.py:open_for_write():77] open: /home/nthom/Documents/SmartRecon/Fingerprinting in Noisy Network Environments/code/wandb/offline-run-20220224_152308-35ri3sdo/run-35ri3sdo.wandb
+2022-02-24 15:23:08,597 DEBUG   HandlerThread:55349 [meta.py:__init__():36] meta init
+2022-02-24 15:23:08,597 DEBUG   HandlerThread:55349 [meta.py:__init__():50] meta init done
+2022-02-24 15:23:08,597 DEBUG   HandlerThread:55349 [meta.py:probe():210] probe
+2022-02-24 15:23:08,603 DEBUG   HandlerThread:55349 [meta.py:_setup_git():200] setup git
+2022-02-24 15:23:08,612 DEBUG   HandlerThread:55349 [meta.py:_setup_git():207] setup git done
+2022-02-24 15:23:08,612 DEBUG   HandlerThread:55349 [meta.py:_save_pip():54] save pip
+2022-02-24 15:23:08,612 DEBUG   HandlerThread:55349 [meta.py:_save_pip():68] save pip done
+2022-02-24 15:23:08,612 DEBUG   HandlerThread:55349 [meta.py:_save_conda():75] save conda
+2022-02-24 15:23:10,169 DEBUG   HandlerThread:55349 [meta.py:_save_conda():85] save conda done
+2022-02-24 15:23:10,169 DEBUG   HandlerThread:55349 [meta.py:probe():248] probe done
+2022-02-24 15:32:56,677 DEBUG   SenderThread:55349 [sender.py:send():235] send: exit
+2022-02-24 15:32:56,677 INFO    SenderThread:55349 [sender.py:send_exit():371] handling exit code: 0
+2022-02-24 15:32:56,678 INFO    SenderThread:55349 [sender.py:send_exit():373] handling runtime: 588
+2022-02-24 15:32:56,678 DEBUG   HandlerThread:55349 [handler.py:handle_request():131] handle_request: poll_exit
+2022-02-24 15:32:56,678 INFO    SenderThread:55349 [sender.py:_save_file():944] saving file wandb-summary.json with policy end
+2022-02-24 15:32:56,678 INFO    SenderThread:55349 [sender.py:send_exit():379] send defer
+2022-02-24 15:32:56,678 DEBUG   SenderThread:55349 [sender.py:send_request():249] send_request: poll_exit
+2022-02-24 15:32:56,678 DEBUG   HandlerThread:55349 [handler.py:handle_request():131] handle_request: defer
+2022-02-24 15:32:56,678 INFO    HandlerThread:55349 [handler.py:handle_request_defer():154] handle defer: 0
+2022-02-24 15:32:56,678 DEBUG   SenderThread:55349 [sender.py:send_request():249] send_request: defer
+2022-02-24 15:32:56,679 INFO    SenderThread:55349 [sender.py:send_request_defer():388] handle sender defer: 0
+2022-02-24 15:32:56,679 INFO    SenderThread:55349 [sender.py:transition_state():392] send defer: 1
+2022-02-24 15:32:56,679 DEBUG   HandlerThread:55349 [handler.py:handle_request():131] handle_request: defer
+2022-02-24 15:32:56,679 INFO    HandlerThread:55349 [handler.py:handle_request_defer():154] handle defer: 1
+2022-02-24 15:32:56,733 DEBUG   SenderThread:55349 [sender.py:send_request():249] send_request: defer
+2022-02-24 15:32:56,733 INFO    SenderThread:55349 [sender.py:send_request_defer():388] handle sender defer: 1
+2022-02-24 15:32:56,733 INFO    SenderThread:55349 [sender.py:transition_state():392] send defer: 2
+2022-02-24 15:32:56,733 DEBUG   HandlerThread:55349 [handler.py:handle_request():131] handle_request: defer
+2022-02-24 15:32:56,734 INFO    HandlerThread:55349 [handler.py:handle_request_defer():154] handle defer: 2
+2022-02-24 15:32:56,734 DEBUG   SenderThread:55349 [sender.py:send_request():249] send_request: defer
+2022-02-24 15:32:56,734 INFO    SenderThread:55349 [sender.py:send_request_defer():388] handle sender defer: 2
+2022-02-24 15:32:56,734 INFO    SenderThread:55349 [sender.py:transition_state():392] send defer: 3
+2022-02-24 15:32:56,734 DEBUG   HandlerThread:55349 [handler.py:handle_request():131] handle_request: defer
+2022-02-24 15:32:56,734 INFO    HandlerThread:55349 [handler.py:handle_request_defer():154] handle defer: 3
+2022-02-24 15:32:56,734 DEBUG   SenderThread:55349 [sender.py:send_request():249] send_request: defer
+2022-02-24 15:32:56,734 INFO    SenderThread:55349 [sender.py:send_request_defer():388] handle sender defer: 3
+2022-02-24 15:32:56,734 INFO    SenderThread:55349 [sender.py:transition_state():392] send defer: 4
+2022-02-24 15:32:56,735 DEBUG   HandlerThread:55349 [handler.py:handle_request():131] handle_request: defer
+2022-02-24 15:32:56,735 INFO    HandlerThread:55349 [handler.py:handle_request_defer():154] handle defer: 4
+2022-02-24 15:32:56,735 DEBUG   SenderThread:55349 [sender.py:send_request():249] send_request: defer
+2022-02-24 15:32:56,735 INFO    SenderThread:55349 [sender.py:send_request_defer():388] handle sender defer: 4
+2022-02-24 15:32:56,735 INFO    SenderThread:55349 [sender.py:transition_state():392] send defer: 5
+2022-02-24 15:32:56,735 DEBUG   HandlerThread:55349 [handler.py:handle_request():131] handle_request: defer
+2022-02-24 15:32:56,735 INFO    HandlerThread:55349 [handler.py:handle_request_defer():154] handle defer: 5
+2022-02-24 15:32:56,735 DEBUG   SenderThread:55349 [sender.py:send_request():249] send_request: defer
+2022-02-24 15:32:56,735 INFO    SenderThread:55349 [sender.py:send_request_defer():388] handle sender defer: 5
+2022-02-24 15:32:56,735 INFO    SenderThread:55349 [sender.py:transition_state():392] send defer: 6
+2022-02-24 15:32:56,735 DEBUG   HandlerThread:55349 [handler.py:handle_request():131] handle_request: defer
+2022-02-24 15:32:56,736 INFO    HandlerThread:55349 [handler.py:handle_request_defer():154] handle defer: 6
+2022-02-24 15:32:56,736 DEBUG   SenderThread:55349 [sender.py:send_request():249] send_request: defer
+2022-02-24 15:32:56,736 INFO    SenderThread:55349 [sender.py:send_request_defer():388] handle sender defer: 6
+2022-02-24 15:32:56,736 INFO    SenderThread:55349 [sender.py:transition_state():392] send defer: 7
+2022-02-24 15:32:56,736 DEBUG   HandlerThread:55349 [handler.py:handle_request():131] handle_request: defer
+2022-02-24 15:32:56,736 INFO    HandlerThread:55349 [handler.py:handle_request_defer():154] handle defer: 7
+2022-02-24 15:32:56,736 DEBUG   SenderThread:55349 [sender.py:send_request():249] send_request: defer
+2022-02-24 15:32:56,736 INFO    SenderThread:55349 [sender.py:send_request_defer():388] handle sender defer: 7
+2022-02-24 15:32:56,736 INFO    SenderThread:55349 [sender.py:transition_state():392] send defer: 8
+2022-02-24 15:32:56,736 DEBUG   HandlerThread:55349 [handler.py:handle_request():131] handle_request: defer
+2022-02-24 15:32:56,736 INFO    HandlerThread:55349 [handler.py:handle_request_defer():154] handle defer: 8
+2022-02-24 15:32:56,736 DEBUG   SenderThread:55349 [sender.py:send_request():249] send_request: defer
+2022-02-24 15:32:56,736 INFO    SenderThread:55349 [sender.py:send_request_defer():388] handle sender defer: 8
+2022-02-24 15:32:56,737 INFO    SenderThread:55349 [sender.py:transition_state():392] send defer: 9
+2022-02-24 15:32:56,737 DEBUG   HandlerThread:55349 [handler.py:handle_request():131] handle_request: defer
+2022-02-24 15:32:56,737 INFO    HandlerThread:55349 [handler.py:handle_request_defer():154] handle defer: 9
+2022-02-24 15:32:56,737 DEBUG   SenderThread:55349 [sender.py:send():235] send: final
+2022-02-24 15:32:56,737 DEBUG   SenderThread:55349 [sender.py:send_request():249] send_request: defer
+2022-02-24 15:32:56,737 INFO    SenderThread:55349 [sender.py:send_request_defer():388] handle sender defer: 9
+2022-02-24 15:32:56,779 DEBUG   HandlerThread:55349 [handler.py:handle_request():131] handle_request: poll_exit
+2022-02-24 15:32:56,779 DEBUG   SenderThread:55349 [sender.py:send_request():249] send_request: poll_exit
+2022-02-24 15:32:56,780 DEBUG   HandlerThread:55349 [handler.py:handle_request():131] handle_request: get_summary
+2022-02-24 15:32:56,781 DEBUG   HandlerThread:55349 [handler.py:handle_request():131] handle_request: sampled_history
+2022-02-24 15:32:56,782 DEBUG   HandlerThread:55349 [handler.py:handle_request():131] handle_request: shutdown
+2022-02-24 15:32:56,782 INFO    HandlerThread:55349 [handler.py:finish():739] shutting down handler
+2022-02-24 15:32:57,737 INFO    WriterThread:55349 [datastore.py:close():281] close: /home/nthom/Documents/SmartRecon/Fingerprinting in Noisy Network Environments/code/wandb/offline-run-20220224_152308-35ri3sdo/run-35ri3sdo.wandb
+2022-02-24 15:32:57,779 INFO    SenderThread:55349 [sender.py:finish():1075] shutting down sender
+2022-02-24 15:32:57,780 INFO    MainThread:55349 [internal.py:handle_exit():79] Internal process exited

@@ -1,0 +1,141 @@
+Select data set to run:
+Options:
+1: ['../data/clddr/', 'CLDDR']
+2: ['../data/clddr_categories/', 'CLDDR Categories']
+3: ['../data/clddr_random_noise_devices/', 'CLDDR Random Noise']
+4: ['../data/clddr_random_noise_categories/', 'CLDDR Random Noise Categories']
+5: ['../data/clddr_random_noise_devices_no_Wans/', 'CLDDR Random Noise No Wans']
+
+Selection: Selection:
+__________
+
+Selection: Selection: Selection:
+__________
+
+Selection: Selection: Selection: Selection:
+__________
+Use Per Device or Cross Fold? (Enter 0 for Per Dev or 1 for Cross Fold)
+*** Begin Processing ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv Dataset ***
+*** Parameters in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 1633038 ***
+*** Samples for device: other in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 85950 (0.052631965698287486%) ***
+*** Samples for device: Tenvis_Cam in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 12838 (0.00786142147335212%) ***
+*** Samples for device: Minger_LightStrip in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 29235 (0.017902216604879985%) ***
+*** Samples for device: Wans_Cam in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 346463 (0.21215856581414516%) ***
+*** Samples for device: LaCrosse_AlarmClock in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 27231 (0.016675055938686057%) ***
+*** Samples for device: Lumiman_Bulb900 in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 110878 (0.0678967666398455%) ***
+*** Samples for device: Lumiman_Bulb600 in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 110451 (0.06763529078931416%) ***
+*** Samples for device: Smart_Lamp in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 109296 (0.06692802004607364%) ***
+*** Samples for device: Renpho_SmartPlug in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 110317 (0.06755323513598581%) ***
+*** Samples for device: Gosuna_LightBulb in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 109112 (0.06681534661165264%) ***
+*** Samples for device: Goumia_Coffemaker in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 19339 (0.011842345371020148%) ***
+*** Samples for device: oossxx_SmartPlug in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 110590 (0.06772040822075175%) ***
+*** Samples for device: Ocean_Radio in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 60339 (0.036948925867003705%) ***
+*** Samples for device: Gosuna_Socket in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 110205 (0.06748465130633825%) ***
+*** Samples for device: Chime_Doorbell in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 11169 (0.0068393999404790335%) ***
+*** Samples for device: Smart_LightStrip in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 110625 (0.06774184066751662%) ***
+*** Samples for device: D-Link_Cam936L in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 23574 (0.014435671429568694%) ***
+*** Samples for device: Lumiman_SmartPlug in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 110354 (0.06757589229399438%) ***
+*** Samples for device: itTiot_Cam in ../data/clddr_random_noise_devices/clddr_random_noise_devices.csv: 25072 (0.015352980151104874%) ***
+*** Dataset Loaded ***
+*** Using Per Device ***
+*** Begin Dataset Preprocessing ***
+*** Finished Dataset Preprocessing ***
+*** Begin Calculating Device Weights ***
+*** other Weight: 0.05263319044703001 ***
+*** Tenvis_Cam Weight: 0.007859767299448867 ***
+*** Minger_LightStrip Weight: 0.01790263319044703 ***
+*** Wans_Cam Weight: 0.2121616656460502 ***
+*** LaCrosse_AlarmClock Weight: 0.016674831598285363 ***
+*** Lumiman_Bulb900 Weight: 0.06789650949173301 ***
+*** Lumiman_Bulb600 Weight: 0.06763625229638702 ***
+*** Smart_Lamp Weight: 0.06692896509491733 ***
+*** Renpho_SmartPlug Weight: 0.0675535823637477 ***
+*** Gosuna_LightBulb Weight: 0.0668156766687079 ***
+*** Goumia_Coffemaker Weight: 0.011840171463563993 ***
+*** oossxx_SmartPlug Weight: 0.06772198407838334 ***
+*** Ocean_Radio Weight: 0.0369473361910594 ***
+*** Gosuna_Socket Weight: 0.06748622167789345 ***
+*** Chime_Doorbell Weight: 0.006837109614206981 ***
+*** Smart_LightStrip Weight: 0.06774341702388242 ***
+*** D-Link_Cam936L Weight: 0.014433557868952847 ***
+*** Lumiman_SmartPlug Weight: 0.06757501530924678 ***
+*** itTiot_Cam Weight: 0.015352112676056339 ***
+*** Total Weight Sum (Sanity Check): 1.0 ***
+*** Finished Calculating Device Weights ***
+*** Begin Training ***
+Selection: Selection: Selection: Selection: /home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/nthom/anaconda3/envs/notebooks/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Recall is ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
