@@ -1,20 +1,18 @@
 # distributed training
 nodes: 1
 gpus: 1 # I recommend always assigning 1 GPU to 1 node
-workers: 12
+workers: 8
 
 # train options
-seed: 256 # sacred handles automatic seeding when passed in the config
-batch_size: 1024
-learning_rate: 0.00003
+seed: 512 # sacred handles automatic seeding when passed in the config
+batch_size: 8192
+learning_rate: 0.001
 start_epoch: 0
-epochs: 20
+epochs: 10
 pretrain: False
 train: True
 val_only: False
 test: False
-save: True
-reload: False
 
 # dataset options
 dataset_dir: "../../data/"
@@ -27,18 +25,21 @@ print_num_samples_bool: False
 # model options
 model: "MLP"
 in_features: 32
-num_layers: 1
-num_nodes_per_layer: 500
-out_features: 128
+num_layers_hidden_layers: 5
+num_nodes_per_layer: 1024
+out_features: 19
 
 # loss options
+alpha: 0.2
 optimizer: "Adam"
 weight_decay: 1.0e-6
 
 # save options
+save: False
 save_name: "triple_loss_mlp"
 
 # reload options
+reload: False
 model_path: "./checkpoints/"
 model_file: "triple_loss_mlp"
 

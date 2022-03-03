@@ -11,13 +11,13 @@ class MLP(nn.Module):
         self.layers.add_module(f'dropout_{0}', nn.Dropout(dropout))
 
         for i in range(num_layers):
-            self.layers.add_module(f'fc_{i+1}', nn.Linear(in_features, out_features))
+            self.layers.add_module(f'fc_{i+1}', nn.Linear(num_nodes_per_layer, num_nodes_per_layer))
             self.layers.add_module(f'{activation}_{i+1}', act_fn())
             self.layers.add_module(f'dropout_{i+1}', nn.Dropout(dropout))
 
         self.layers.add_module(f'fc_{num_layers+1}', nn.Linear(num_nodes_per_layer, out_features))
-        self.layers.add_module(f'{activation}_{num_layers+1}', act_fn())
-        self.layers.add_module(f'dropout_{num_layers+1}', nn.Dropout(dropout))
+        # self.layers.add_module(f'{activation}_{num_layers+1}', act_fn())
+        # self.layers.add_module(f'dropout_{num_layers+1}', nn.Dropout(dropout))
 
     def forward(self, x):
         return self.layers(x)

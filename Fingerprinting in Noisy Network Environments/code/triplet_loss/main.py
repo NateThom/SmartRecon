@@ -11,6 +11,7 @@ from pytorch_lightning.plugins import DDPPlugin
 import numpy as np
 import matplotlib.pyplot as plt
 import wandb
+from tqdm import tqdm
 
 from yaml_config_hook import yaml_config_hook
 from MLP import MLP
@@ -24,12 +25,18 @@ class TripletLearner(LightningModule):
         self.args = args
 
         # initialize the model
-        self.model = MLP(args.in_features, args.out_features, args.num_layers, args.num_nodes_per_layer,
-                         activation='ReLU', dropout=0.5)
+        self.model = MLP(self.args.in_features, self.args.out_features, self.args.num_layers_hidden_layers,
+                         self.args.num_nodes_per_layer, activation='ReLU', dropout=0.5)
 
-    def triplet_loss(self, anchor, positive, negative):
-        loss = torch.mean((anchor - positive) ** 2)
-        return loss
+        self.criterion = torch.nn.TripletMarginLoss(margin=1.0, p=2)
+
+        print(self.model)
+
+        self.average_loss = 0
+
+    # def triplet_loss(self, anchor, positive, negative):
+    #     loss = torch.max(torch.dist(anchor, positive, p=2) - torch.dist(anchor, negative, p=2) + self.args.alpha, 0)
+    #     return loss
 
     def forward(self, anchor, positive, negative):
         anchor_rep = self.model(anchor)
@@ -38,11 +45,12 @@ class TripletLearner(LightningModule):
         return anchor_rep, positive_rep, negative_rep
 
     def training_step(self, batch, batch_idx):
-        # training_step defined the train loop. It is independent of forward
-        anchor_in, positive_in, negative_in = batch
+        anchor_in, anchor_label, positive_in, negative_in = batch
         anchor_out, positive_out, negative_out = self.forward(anchor_in, positive_in, negative_in)
-        loss = self.triplet_loss(anchor_out, positive_out, negative_out)
+        loss = self.criterion(anchor_out, positive_out, negative_out)
+
         self.log("Training Loss", loss, on_step=True, on_epoch=True, logger=True, prog_bar=True)
+
         return loss
 
     def test_step(self, test_batch, batch_idx):
@@ -65,14 +73,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="smart_attacker_unsupervised")
     yaml_config = yaml_config_hook(config_path)
 
-    sweep = False
+    sweep = True
     if sweep:
         hyperparameter_defaults = dict(
             input_size=32,
             num_layers=1,
-            num_nodes_per_layer=500,
-            output_size=128,
-            learning_rate=0.0003
+            num_nodes_per_layer=512,
+            output_size=23,
+            learning_rate=0.0001
         )
 
         wandb.init(config=hyperparameter_defaults)
@@ -103,15 +111,17 @@ if __name__ == "__main__":
         train_loader = DataLoader(train_dataset, batch_size=args.batch_size, num_workers=args.workers, drop_last=False,
                                   shuffle=True)
 
-    elif args.test:
-        if args.dataset == "Triplet":
-            test_dataset = Triplet_Dataset(
-                args,
-                fold="testing",
-                transform=None
-            )
+        # for item in tqdm(train_loader):
+        #     continue
 
-        test_loader = DataLoader(test_dataset, batch_size=args.batch_size, num_workers=args.workers, drop_last=False)
+    elif args.test:
+        test_dataset = Triplet_Dataset(
+            args,
+            fold="testing",
+        )
+
+        test_loader = DataLoader(test_dataset, batch_size=args.batch_size, num_workers=args.workers, drop_last=False,
+                                  shuffle=False)
 
     if args.reload:
         tl = TripletLearner.load_from_checkpoint(args.model_path + args.model_file, args=args)
@@ -122,8 +132,8 @@ if __name__ == "__main__":
         checkpoint_callback = ModelCheckpoint(
             monitor='Training Loss',
             dirpath=args.model_path,
-            filename='{epoch:02d}-{Training Loss:.05f}-' + f"{args.num_layers}-" +
-                     f"{args.num_nodes_per_layer}-" + f"{args.learning_rate}",
+            filename='{epoch:02d}-{Training Loss:.05f}-' + f"{args.learning_rate}-" + f"{args.epochs}-" +
+                     f"{args.num_hidden_layers}-" + f"{args.num_nodes_per_layer}",
             save_top_k=1,
             mode='min',
         )
@@ -133,7 +143,6 @@ if __name__ == "__main__":
             precision=16,
             callbacks=[checkpoint_callback],
             accelerator='ddp',
-            plugins=DDPPlugin(find_unused_parameters=False),
             gpus=args.gpus,
             num_nodes=1,
             # limit_train_batches=0.01,
@@ -146,7 +155,6 @@ if __name__ == "__main__":
             precision=16,
             checkpoint_callback=False,
             accelerator='ddp',
-            plugins=DDPPlugin(find_unused_parameters=False),
             gpus=args.gpus,
             num_nodes=1,
             # limit_train_batches=0.01,
