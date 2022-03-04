@@ -2,10 +2,10 @@ command:
   - /home/nthom/anaconda3/envs/notebooks/bin/python
   - main.py
 program: main.py
-method: bayes
+method: grid
 metric:
   goal: minimize
-  name: Training Loss_epoch
+  name: Training Loss Epoch
 parameters:
   learning_rate:
     values: [0.1, 0.01., .0.001, 0.0001, 0.00001]

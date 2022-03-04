@@ -49,9 +49,18 @@ class TripletLearner(LightningModule):
         anchor_out, positive_out, negative_out = self.forward(anchor_in, positive_in, negative_in)
         loss = self.criterion(anchor_out, positive_out, negative_out)
 
-        self.log("Training Loss", loss, on_step=True, on_epoch=True, logger=True, prog_bar=True)
+        self.log("Training Loss", loss, on_step=True, on_epoch=False, logger=True, prog_bar=True)
 
         return loss
+
+    def training_epoch_end(self, outputs):
+        average_loss = 0
+        for output in outputs:
+            average_loss += output['loss'].item()
+
+        average_loss = average_loss / len(outputs)
+
+        self.log("Training Loss Epoch", average_loss, logger=True, prog_bar=True)
 
     def test_step(self, test_batch, batch_idx):
         anchor_in, positive_in, negative_in = test_batch
