@@ -32,7 +32,7 @@ def noise_generator(original_df, names, one_hundred_times=False):
 def combine_csv(csv_list, names):
     final_df = pd.DataFrame(columns=names)
     for index, csv in enumerate(csv_list):
-        temp_df = pd.read_csv(csv, names=names)
+        temp_df = pd.read_csv(csv, names=names, skiprows=1)
         final_df = pd.concat([final_df, temp_df])
 
     return final_df
@@ -73,7 +73,7 @@ def get_dataset():
 
     experiment_type = int(input("Select one of the following: \n1. Nilsimsa Per-Packet Devices \n"
                                 "2. Nilsimsa Per-Packet Categories \n3. Nilsimsa Identical Devices \n"
-                                "4. SimHash Identical Devices \n5. 100x Noise"))
+                                "4. FlexHash Identical Devices \n5. 100x Noise"))
     if not experiment_type in [1, 2, 3, 4, 5]:
         raise ValueError("'experiment_type' selection must be one of the following values: 1, 2, 3, 4 or 5.")
 
@@ -331,15 +331,15 @@ def get_dataset():
             combo = int(input("Select one of the following combination sizes: \n2 \n3 \n4 \n5 \n6"))
 
         if c_uc == 1:
-            target_dir = f"{path_to_simhash}{device_selection}/{accum}/win_{window}/comb_{combo}/cleaned/"
+            target_dir = f"{path_to_simhash}{device_selection}/accum_{accum}/window_{window}/combo_{combo}/cleaned/"
             csv_list = os.listdir(target_dir)
             csv_list = [f"{target_dir + i}" for i in csv_list]
-            name = f"SimHash-{device_selection}-{accum}-win_{window}-combo_{combo}-cleaned"
+            name = f"FlexHash-{device_selection}-accum_{accum}-win_{window}-combo_{combo}-cleaned"
         else:
-            target_dir = f"{path_to_simhash}{device_selection}/{accum}/win_{window}/comb_{combo}/uncleaned/"
+            target_dir = f"{path_to_simhash}{device_selection}/accum_{accum}/window_{window}/combo_{combo}/uncleaned/"
             csv_list = os.listdir(target_dir)
             csv_list = [f"{target_dir + i}" for i in csv_list]
-            name = f"SimHash-{device_selection}-{accum}-win_{window}-combo_{combo}-uncleaned"
+            name = f"FlexHash-{device_selection}-accum_{accum}-window_{window}-combo_{combo}-uncleaned"
 
         dataset = combine_csv(csv_list, names)
 
@@ -671,17 +671,19 @@ def get_dataset_parameterized(experiment_type=1, c_uc=1, noise=1, device=1, i_ni
             target_dir = f"{path_to_simhash}accum_{accum}/window_{window}/combo_{combo}/cleaned/"
             csv_list = os.listdir(target_dir)
             csv_list = [f"{target_dir + i}" for i in csv_list]
-            name = f"SimHash-{device_selection}-accum_{accum}-window_{window}-combo_{combo}-cleaned"
+            name = f"FlexHash-{device_selection}-accum_{accum}-window_{window}-combo_{combo}-cleaned"
         elif c_uc == 2:
             target_dir = f"{path_to_simhash}accum_{accum}/window_{window}/combo_{combo}/uncleaned/"
             csv_list = os.listdir(target_dir)
             csv_list = [f"{target_dir + i}" for i in csv_list]
-            name = f"SimHash-{device_selection}-accum_{accum}-window_{window}-combo_{combo}-uncleaned"
+            name = f"FlexHash-{device_selection}-accum_{accum}-window_{window}-combo_{combo}-uncleaned"
 
         dataset = combine_csv(csv_list, names)
     return dataset, name
 
-def get_dataset_parameterized_auto_select(noise, noise_c_uc, device, device_c_uc, device_i_ni, accum, window, combo):
+def get_dataset_parameterized_auto_select(device, device_c_uc, noise, noise_c_uc, accum, window, combo):
+    if not accum in [128, 256, 512, 1024]:
+        raise ValueError("'accum' parameter must be one of the following values: 128, 256, 512 or 1024.")
     if accum == 128:
         names = ['dim1','dim2','dim3','dim4','dim5','dim6','dim7','dim8','dim9','dim10','dim11','dim12','dim13',
                  'dim14','dim15','dim16','class']
@@ -696,7 +698,7 @@ def get_dataset_parameterized_auto_select(noise, noise_c_uc, device, device_c_uc
                  'dim38','dim39','dim40','dim41','dim42','dim43','dim44','dim45','dim46','dim47','dim48','dim49',
                  'dim50','dim51','dim52','dim53','dim54','dim55','dim56','dim57','dim58','dim59','dim60','dim61',
                  'dim62','dim63','dim64','class']
-    if accum == 1024:
+    else:
         names = ['dim1','dim2','dim3','dim4','dim5','dim6','dim7','dim8','dim9','dim10','dim11','dim12','dim13',
                  'dim14','dim15','dim16','dim17','dim18','dim19','dim20','dim21','dim22','dim23','dim24','dim25',
                  'dim26','dim27','dim28','dim29','dim30','dim31','dim32','dim33','dim34','dim35','dim36','dim37',
@@ -708,34 +710,6 @@ def get_dataset_parameterized_auto_select(noise, noise_c_uc, device, device_c_uc
                  'dim98','dim99','dim100','dim101','dim102','dim103','dim104','dim105','dim106','dim107','dim108',
                  'dim109','dim110','dim111','dim112','dim113','dim114','dim115','dim116','dim117','dim118','dim119',
                  'dim120','dim121','dim122','dim123','dim124','dim125','dim126','dim127','dim128','class']
-
-    if not noise in [1, 2, 3, 4]:
-        raise ValueError("'noise' parameter must be one of the following values: 1, 2 or 3. 1 represents random, 2 "
-                         "represents iot and 3 network.")
-    if noise != 4:
-        if not noise_c_uc in [1, 2]:
-            raise ValueError("'noise_c_uc' parameter must be one of the following values: 1 or 2.")
-        if noise_c_uc == 1:
-            noise_c_uc_selection = "cleaned"
-        else:
-            noise_c_uc_selection = "uncleaned"
-
-        if noise == 1:
-            noise_selection = "random"
-        elif noise == 2:
-            noise_selection = "iot"
-        else:
-            noise_selection = "network"
-
-        path_to_noise = f"/home/nthom/Documents/SmartRecon/Fingerprinting in Noisy Network Environments/data/" \
-                        f"FlexHash_noise/{noise_selection}/accum_{accum}/window_{window}/combo_{combo}/cleaned/"
-        noise_csv_list = os.listdir(path_to_noise)
-        noise_csv_list = [f"{path_to_noise + i}" for i in noise_csv_list]
-
-        noise_name = f"{noise_selection}_{noise_c_uc_selection}"
-    else:
-        noise_csv_list = []
-        noise_name = "none"
 
     if not device in [1, 2, 3]:
         raise ValueError("'device' parameter must be one of the following values: 1, 2 or 3. 1 represents plugs, 2 "
@@ -755,13 +729,47 @@ def get_dataset_parameterized_auto_select(noise, noise_c_uc, device, device_c_uc
         device_c_uc_selection = "uncleaned"
 
     path_to_simhash = f"/home/nthom/Documents/SmartRecon/Fingerprinting in Noisy Network Environments/data/simhashes/" \
-                      f"{device_selection}/accum_{accum}/window_{window}/combo_{combo}/cleaned/"
+                      f"{device_selection}/accum_{accum}/window_{window}/combo_{combo}/{device_c_uc_selection}/"
     device_csv_list = os.listdir(path_to_simhash)
     device_csv_list = [f"{path_to_simhash + i}" for i in device_csv_list]
 
-    name = f"SimHash-{device_selection}_{device_c_uc_selection}-{noise_name}-" \
+    if not noise in [1, 2, 3, 4]:
+        raise ValueError("'noise' parameter must be one of the following values: 1, 2, 3 or 4.")
+    if noise not in [3, 4]:
+        if not noise_c_uc in [1, 2]:
+            raise ValueError("'noise_c_uc' parameter must be one of the following values: 1 or 2.")
+        if noise_c_uc == 1:
+            noise_c_uc_selection = "cleaned"
+        else:
+            noise_c_uc_selection = "uncleaned"
+
+        if noise == 1:
+            noise_selection = "iot"
+        else:
+            noise_selection = "network"
+
+        path_to_noise = f"/home/nthom/Documents/SmartRecon/Fingerprinting in Noisy Network Environments/data/" \
+                        f"FlexHash_noise/{noise_selection}/accum_{accum}/window_{window}/combo_{combo}/" \
+                        f"{noise_c_uc_selection}/"
+        noise_csv_list = os.listdir(path_to_noise)
+        noise_csv_list = [f"{path_to_noise + i}" for i in noise_csv_list]
+
+        csv_list = device_csv_list + noise_csv_list
+        dataset = combine_csv(csv_list, names)
+
+        noise_name = f"{noise_selection}_{noise_c_uc_selection}"
+    elif noise == 4:
+        noise_csv_list = []
+        noise_name = "none"
+        csv_list = device_csv_list + noise_csv_list
+        dataset = combine_csv(csv_list, names)
+    else:
+        noise_name = "random"
+        dataset = combine_csv(device_csv_list, names)
+        dataset = noise_generator(dataset, names)
+
+
+    name = f"FlexHash-{device_selection}_{device_c_uc_selection}-{noise_name}-" \
            f"accum_{accum}-window_{window}-combo_{combo}"
 
-    csv_list = device_csv_list + noise_csv_list
-    dataset = combine_csv(csv_list, names)
     return dataset, name
