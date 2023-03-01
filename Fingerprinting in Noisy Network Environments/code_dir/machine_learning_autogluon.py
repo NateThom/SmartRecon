@@ -35,7 +35,7 @@ dataset["class"] = y_temp
 y = dataset['class']
 labels_numeric = dataset['class'].unique()
 
-x_train, x_test, y_train, y_test = train_test_split(x.values, y.values, test_size=.8, stratify=y.values)
+x_train, x_test, y_train, y_test = train_test_split(x.values, y.values, test_size=.2, stratify=y.values)
 
 
 names = list(range(x_train.shape[1]))
