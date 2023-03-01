@@ -73,18 +73,18 @@ def get_dataset():
 
     experiment_type = int(input("Select one of the following: \n1. Nilsimsa Per-Packet Devices \n"
                                 "2. Nilsimsa Per-Packet Categories \n3. Nilsimsa Identical Devices \n"
-                                "4. FlexHash Identical Devices \n5. 100x Noise"))
+                                "4. FlexHash Identical Devices \n5. 100x Noise\n"))
     if not experiment_type in [1, 2, 3, 4, 5]:
         raise ValueError("'experiment_type' selection must be one of the following values: 1, 2, 3, 4 or 5.")
 
 
-    c_uc = int(input("Select one of the following: \n1. Cleaned \n2. Uncleaned"))
+    c_uc = int(input("Select one of the following: \n1. Cleaned \n2. Uncleaned\n"))
     if not c_uc in [1, 2]:
         raise ValueError("'c_uc' selection must be one of the following values: 1 or 2,")
 
     if experiment_type == 1 and c_uc == 1:
         noise = int(input("Select one of the following: \n1. Random \n2. IoT Cleaned \n3. IoT Uncleaned \n"
-                          "4. Network Cleaned \n5. Network Uncleaned \n6. None"))
+                          "4. Network Cleaned \n5. Network Uncleaned \n6. None\n"))
         if not noise in [1, 2, 3, 4, 5, 6]:
             raise ValueError("'noise' selection must be one of the following values: 1, 2, 3, 4, 5 or 6.")
 
@@ -115,7 +115,7 @@ def get_dataset():
             name = "cleaned_devices"
     elif experiment_type == 1 and c_uc == 2:
         noise = int(input("Select one of the following: \n1. Random \n2. IoT Cleaned \n3. IoT Uncleaned \n"
-                          "4. Network Cleaned \n5. Network Uncleaned \n6. None"))
+                          "4. Network Cleaned \n5. Network Uncleaned \n6. None\n"))
         if not noise in [1, 2, 3, 4, 5, 6]:
             raise ValueError("'noise' selection must be one of the following values: 1, 2, 3, 4, 5 or 6.")
 
@@ -146,7 +146,7 @@ def get_dataset():
             name = "uncleaned_devices"
     elif experiment_type == 2 and c_uc == 1:
         noise = int(input("Select one of the following: \n1. Random \n2. IoT Cleaned \n3. IoT Uncleaned \n"
-                          "4. Network Cleaned \n5. Network Uncleaned \n6. None"))
+                          "4. Network Cleaned \n5. Network Uncleaned \n6. None\n"))
         if not noise in [1, 2, 3, 4, 5, 6]:
             raise ValueError("'noise' selection must be one of the following values: 1, 2, 3, 4, 5 or 6.")
 
@@ -177,7 +177,7 @@ def get_dataset():
             name = "cleaned_categories"
     elif experiment_type == 2 and c_uc == 2:
         noise = int(input("Select one of the following: \n1. Random \n2. IoT Cleaned \n3. IoT Uncleaned \n"
-                          "4. Network Cleaned \n5. Network Uncleaned \n6. None"))
+                          "4. Network Cleaned \n5. Network Uncleaned \n6. None\n"))
         if not noise in [1, 2, 3, 4, 5, 6]:
             raise ValueError("'noise' selection must be one of the following values: 1, 2, 3, 4, 5 or 6.")
 
@@ -207,12 +207,12 @@ def get_dataset():
             dataset = read_csv(path_to_per_packet_uncleaned_categories, names=names)
             name = "uncleaned_categories"
     elif experiment_type == 3:
-        device = int(input("Select one of the following: \n1. Plug \n2. Bulb \n3. Cam"))
+        device = int(input("Select one of the following: \n1. Plug \n2. Bulb \n3. Cam\n"))
         if not device in [1, 2, 3]:
             raise ValueError("'device' parameter must be one of the following values: 1, 2 or 3. 1 represents plugs, 2 "
                              "represents light bulbs and 3 represents cameras.")
 
-        i_ni = int(input("Select one of the following: \n1. Interaction \n2. No Interaction"))
+        i_ni = int(input("Select one of the following: \n1. Interaction \n2. No Interaction\n"))
         if not i_ni in [1, 2]:
             raise ValueError("'i_ni' parameter must be one of the following values: 1 or 2.")
 
@@ -278,7 +278,7 @@ def get_dataset():
             name = "cam-uncleaned-no_interaction"
 
     elif experiment_type == 4:
-        device = int(input("Select one of the following: \n1. Plug \n2. Bulb \n3. Cam"))
+        device = int(input("Select one of the following: \n1. Plug \n2. Bulb \n3. Cam\n"))
         if not device in [1, 2, 3]:
             raise ValueError("'device' parameter must be one of the following values: 1, 2 or 3. 1 represents plugs, 2 "
                              "represents light bulbs and 3 represents cameras.")
@@ -289,7 +289,7 @@ def get_dataset():
         else:
             device_selection = "cam"
 
-        accum = int(input("Select one of the following accumulator sizes: \n128 \n256 \n512 \n1024"))
+        accum = int(input("Select one of the following accumulator sizes: \n128 \n256 \n512 \n1024\n"))
         if not accum in [128, 256, 512, 1024]:
             raise ValueError("'accum' parameter must be one of the following values: 128, 256, 512 or 1024.")
 
@@ -320,15 +320,15 @@ def get_dataset():
                      'dim109','dim110','dim111','dim112','dim113','dim114','dim115','dim116','dim117','dim118','dim119',
                      'dim120','dim121','dim122','dim123','dim124','dim125','dim126','dim127','dim128','class']
 
-        window = int(input("Select one of the following window sizes: \n4 \n5 \n6"))
+        window = int(input("Select one of the following window sizes: \n4 \n5 \n6\n"))
         if not window in [4, 5, 6]:
             raise ValueError("'window' parameter must be one of the following values:4, 5, or 6.")
         if window == 4:
-            combo = int(input("Select one of the following combination sizes: \n2 \n3 \n4"))
+            combo = int(input("Select one of the following combination sizes: \n2 \n3 \n4\n"))
         elif window == 5:
-            combo = int(input("Select one of the following combination sizes: \n2 \n3 \n4 \n5"))
+            combo = int(input("Select one of the following combination sizes: \n2 \n3 \n4 \n5\n"))
         else:
-            combo = int(input("Select one of the following combination sizes: \n2 \n3 \n4 \n5 \n6"))
+            combo = int(input("Select one of the following combination sizes: \n2 \n3 \n4 \n5 \n6\n"))
 
         if c_uc == 1:
             target_dir = f"{path_to_simhash}{device_selection}/accum_{accum}/window_{window}/combo_{combo}/cleaned/"
@@ -344,25 +344,25 @@ def get_dataset():
         dataset = combine_csv(csv_list, names)
 
     else:
-        hash_alg = int(input("Select on of the following hashing algorithms: \n1. Nilsimsa \n2.FlexHash"))
+        hash_alg = int(input("Select on of the following hashing algorithms: \n1. Nilsimsa \n2.FlexHash\n"))
         if not hash_alg in [1, 2]:
             raise ValueError("'hash_alg' parameter must be one of the following values: 1 or 2.")
 
         noise = int(input("Select one of the following: \n1. Random \n2. IoT Cleaned \n3. IoT Uncleaned \n4. Network "
-                          "Cleaned \n5. Network Uncleaned"))
+                          "Cleaned \n5. Network Uncleaned\n"))
         if not noise in [1, 2, 3, 4, 5]:
             raise ValueError("'noise' parameter must be one of the following values: 1, 2, 3, 4 or 5.")
 
         if hash_alg == 1:
-            device = int(input("Select one of the following: \n1. Plug \n2. Bulb \n3. Cam"))
+            device = int(input("Select one of the following: \n1. Plug \n2. Bulb \n3. Cam\n"))
             if not device in [1, 2, 3]:
                 raise ValueError("'device' parameter must be one of the following values: 1, 2 or 3.")
 
-            i_ni = int(input("Select one of the following: \n1. Interaction \n2. No Interaction"))
+            i_ni = int(input("Select one of the following: \n1. Interaction \n2. No Interaction\n"))
             if not i_ni in [1, 2]:
                 raise ValueError("'i_ni' parameter must be one of the following values: 1 or 2.")
 
-            device_num = int(input("Select a device number (1-8): "))
+            device_num = int(input("Select a device number (1-8): \n"))
             if not device_num in [1, 2, 3, 4, 5, 6, 7, 8]:
                 raise ValueError("'device_num' parameter must be one of the following values: 1, 2, 3, 4, 5, 6, 7 or 8.")
 
