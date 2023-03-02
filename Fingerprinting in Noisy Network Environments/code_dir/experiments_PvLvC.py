@@ -142,7 +142,7 @@ print("Summary of class variable: \n", train_dataset_td[label].describe())
 
 predictor = TabularPredictor(
     eval_metric="f1_micro", label="class", path=model_save_path
-).fit(train_dataset_td, presets="best_quality", excluded_model_types=["CAT"])
+).fit(train_dataset_td, presets="best_quality")
 
 results = predictor.fit_summary()
 
