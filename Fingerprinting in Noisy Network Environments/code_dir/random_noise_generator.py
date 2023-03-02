@@ -27,7 +27,9 @@ for i in tqdm(range(num_samples_to_generate)):
 # original_np_array = np.array(original_df.values.tolist())
 # random_np_array = np.array(random_list)
 # output_np_array = np.concatenate((np.array(original_df.values.tolist()), np.array(random_list)), axis=0)
-output_list = np.concatenate((np.array(random_list), np.array(original_df.values.tolist())), axis=0).tolist()
+output_list = np.concatenate(
+    (np.array(random_list), np.array(original_df.values.tolist())), axis=0
+).tolist()
 # output_list = output_np_array.tolist()
 
 output_df = pd.DataFrame(output_list)
