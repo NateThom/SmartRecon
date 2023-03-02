@@ -1,4 +1,5 @@
 import gc
+from socket import gethostname
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -35,7 +36,7 @@ dataset["class"] = y_temp
 y = dataset['class']
 labels_numeric = dataset['class'].unique()
 
-x_train, x_test, y_train, y_test = train_test_split(x.values, y.values, test_size=.2, stratify=y.values)
+x_train, x_test, y_train, y_test = train_test_split(x.values, y.values, test_size=.8, stratify=y.values)
 
 
 names = list(range(x_train.shape[1]))
@@ -52,16 +53,15 @@ print("Garbage collector: collected %d objects." % (collected))
 
 print("*** Dataset Loaded ***")
 
-model_save_path=f"agModels-{name_of_current_data}-3_1"
+model_save_path=f"agModels-{name_of_current_data}_{gethostname()}"
 
 train_dataset_td = TabularDataset(train_dataset_df)
 label = "class"
 print("Summary of class variable: \n", train_dataset_td[label].describe())
 
-predictor = TabularPredictor(eval_metric="f1_micro", label="class", path=model_save_path).fit(train_dataset_td,
-                                                                                              presets="best_quality")
+predictor = TabularPredictor(eval_metric="f1_micro", label="class", path=model_save_path).fit(train_dataset_td, presets="best_quality")
 
-results = predictor.fit_summary(show_plot=True)
+results = predictor.fit_summary()
 
 predictor = TabularPredictor.load(model_save_path)
 
@@ -73,4 +73,4 @@ y_pred = predictor.predict(test_data_noLabel)
 perf = predictor.evaluate_predictions(y_true=y_test, y_pred=y_pred, auxiliary_metrics=True)
 
 leaderboard_df = predictor.leaderboard(test_dataset_td, silent=True)
-leaderboard_df.to_csv(f"autogluon_leaderboard_{name_of_current_data}_3-1.csv")
+leaderboard_df.to_csv(f"autogluon_leaderboard_{name_of_current_data}_{gethostname()}.csv")
