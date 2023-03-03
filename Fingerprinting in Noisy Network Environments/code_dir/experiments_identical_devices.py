@@ -93,7 +93,7 @@ target_dir = f"{path_to_simhash}{device}/accum_{accum}/window_{window}/combo_{co
 for j in os.listdir(target_dir):
     csv_list.append(target_dir + j)
 
-name_of_current_data = f"FlexHash-PvLvC-accum_{accum}-window_{window}-combo_{combo}-cleaned"
+name_of_current_data = f"FlexHash-identicalDevice-{device}-accum_{accum}-window_{window}-combo_{combo}-cleaned"
 dataset = combine_csv(csv_list, names)
 dataset.reset_index(drop=True, inplace=True)
 
