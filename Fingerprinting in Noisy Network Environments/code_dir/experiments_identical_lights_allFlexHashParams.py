@@ -27,7 +27,7 @@ path_to_same_cam_uncleaned_no_interaction = "/home/nthom/Documents/SmartRecon/Fi
 path_to_simhash = "/home/nthom/Documents/SmartRecon/Fingerprinting in Noisy Network Environments/data/simhashes/"
 
 c_uc_list = [1]
-device_list = [1, 2, 3]
+device_list = [2]
 accum_list = [128, 256, 512, 1024]
 window_list = [4, 5, 6]
 
@@ -64,7 +64,7 @@ for c_uc in c_uc_list:
                     for j in os.listdir(target_dir):
                         csv_list.append(target_dir + j)
 
-                    name_of_current_data = f"FlexHash-identicalDeviceAllFlexHashParams-{device}-accum_{accum}-window_" \
+                    name_of_current_data = f"FlexHash-identicalLightsAllFlexHashParams-{device}-accum_{accum}-window_" \
                                            f"{window}-combo_{combo}-cleaned"
                     dataset = combine_csv(csv_list, names)
                     dataset.reset_index(drop=True, inplace=True)
