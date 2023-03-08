@@ -29,8 +29,12 @@ path_to_simhash = "/home/nthom/Documents/SmartRecon/Fingerprinting in Noisy Netw
 c_uc_list = [1]
 device_list = [2]
 accum_list = [128, 256, 512, 1024]
+# accum_list = [128]
 window_list = [4, 5, 6]
+# window_list = [6]
 
+all_params_best_model_performance = [["Device", "Accum", "Window", "Combo", "Model Name", "f1_micro", "accuracy",
+                                      "balanced_accuracy", "mcc"]]
 for c_uc in c_uc_list:
     if c_uc == 1:
         c_uc = "cleaned"
@@ -64,7 +68,7 @@ for c_uc in c_uc_list:
                     for j in os.listdir(target_dir):
                         csv_list.append(target_dir + j)
 
-                    name_of_current_data = f"FlexHash-identicalLightsAllFlexHashParams-{device}-accum_{accum}-window_" \
+                    name_of_current_data = f"FlexHash-identical{device}AllFlexHashParams-{device}-accum_{accum}-window_" \
                                            f"{window}-combo_{combo}-cleaned"
                     dataset = combine_csv(csv_list, names)
                     dataset.reset_index(drop=True, inplace=True)
@@ -100,12 +104,12 @@ for c_uc in c_uc_list:
                         x.values, y.values, test_size=0.2, stratify=y.values
                     )
 
-                    names = list(range(x_train.shape[1]))
-                    train_dataset_df = pd.DataFrame(x_train, columns=names)
+                    col_names = list(range(x_train.shape[1]))
+                    train_dataset_df = pd.DataFrame(x_train, columns=col_names)
                     train_dataset_df.insert(train_dataset_df.shape[1], "class", y_train)
 
-                    names = list(range(x_test.shape[1]))
-                    test_dataset_df = pd.DataFrame(x_test, columns=names)
+                    col_names = list(range(x_test.shape[1]))
+                    test_dataset_df = pd.DataFrame(x_test, columns=col_names)
                     test_dataset_df.insert(test_dataset_df.shape[1], "class", y_test)
 
                     del (
@@ -116,7 +120,6 @@ for c_uc in c_uc_list:
                         y_train,
                         x_test,
                         y_test,
-                        names,
                         dataset,
                         y_temp
                     )
@@ -124,8 +127,14 @@ for c_uc in c_uc_list:
                     model_save_path = f"agModels-{name_of_current_data}_{gethostname()}"
 
                     train_dataset_td = TabularDataset(train_dataset_df)
+
+                    # subsample_size = 2400
+                    # train_dataset_td = train_dataset_td.sample(n=subsample_size, random_state=0)
+
                     label = "class"
                     print("Summary of class variable: \n", train_dataset_td[label].describe())
+
+                    del (train_dataset_df)
 
                     predictor = TabularPredictor(
                         eval_metric="f1_micro", label="class", path=model_save_path
@@ -136,18 +145,29 @@ for c_uc in c_uc_list:
 
                     results = predictor.fit_summary()
 
-                    predictor = TabularPredictor.load(model_save_path)
-
                     test_dataset_td = TabularDataset(test_dataset_df)
-                    y_test = test_dataset_td[label]
-                    test_data_noLabel = test_dataset_td.drop(columns=[label])
 
-                    y_pred = predictor.predict(test_data_noLabel)
-                    perf = predictor.evaluate_predictions(
-                        y_true=y_test, y_pred=y_pred, auxiliary_metrics=True
-                    )
+                    # test_dataset_td = test_dataset_td.sample(n=subsample_size, random_state=0)
 
-                    leaderboard_df = predictor.leaderboard(test_dataset_td)
-                    leaderboard_df.to_csv(
-                        f"agLeaderboard_{name_of_current_data}_{gethostname()}.csv"
-                    )
+                    del (train_dataset_td, test_dataset_df)
+
+                    best_model_name = predictor.get_model_best()
+                    best_model_scores = predictor.evaluate(test_dataset_td)
+
+                    best_model_output_list = [device, accum, window, combo, best_model_name]
+                    for key in best_model_scores.keys():
+                        best_model_output_list.append(best_model_scores[key])
+
+                    all_params_best_model_performance.append(best_model_output_list)
+
+                    predictor.save_space()
+
+                    # if combo == 6:
+                    #     break
+                # break
+            # break
+        # break
+    # break
+
+output_df = pd.DataFrame(all_params_best_model_performance)
+output_df.to_csv(f"{device}_allFlexHashParams_{gethostname()}.csv", index=False)
