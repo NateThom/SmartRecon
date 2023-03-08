@@ -129,8 +129,10 @@ for c_uc in c_uc_list:
 
                     predictor = TabularPredictor(
                         eval_metric="f1_micro", label="class", path=model_save_path
-                    ).fit(train_dataset_td, presets="best_quality", excluded_model_types=["CAT", "KNN", "LR",
-                                                                                          "NN_TORCH", "AG_AUTOMM"])
+                    ).fit(train_dataset_td, presets="best_quality",
+                          excluded_model_types=["CAT", "KNN", "LR", "NN_TORCH", "AG_AUTOMM"],
+                          keep_only_best=True
+                          )
 
                     results = predictor.fit_summary()
 
