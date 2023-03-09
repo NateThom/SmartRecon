@@ -1,6 +1,7 @@
 import gc
 import os
 from socket import gethostname
+import shutil
 
 import pandas as pd
 from tqdm import tqdm
@@ -167,11 +168,13 @@ for device in device_list:
 
                 # print(f"\n\n######\n{best_model_output_list}\n#####\n")
 
-                predictor.save_space()
+                # predictor.save_space()
+
+                shutil.rmtree(f"agModels-{name_of_current_data}_{gethostname()}")
+
+                output_df = pd.DataFrame(all_params_best_model_performance)
+                output_df.to_csv(f"{device}_allFlexHashParams_{gethostname()}.csv", index=False)
 
             # break
         # break
     # break
-
-output_df = pd.DataFrame(all_params_best_model_performance)
-output_df.to_csv(f"{device}_allFlexHashParams_{gethostname()}.csv", index=False)
