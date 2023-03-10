@@ -41,7 +41,7 @@ elif device_list == 3:
 else:
     device_list = [1, 2, 3]
 
-accum_list = int(input("Select one of the following: \n128 \n256 \n512 \n 1024\n"))
+accum_list = int(input("Select one of the following: \n128 \n256 \n512 \n1024\n"))
 if not accum_list in [128, 256, 512, 1024]:
     raise ValueError(
         "'device_list' selection must be one of the following values: 1 or 2,"
