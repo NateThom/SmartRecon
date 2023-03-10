@@ -8,7 +8,7 @@ from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 from autogluon.tabular import TabularDataset, TabularPredictor
 
-from utils import combine_csv, combine_csv_category
+from utils import combine_csv
 
 path_to_same_plug_cleaned_interaction = "/home/nthom/Documents/SmartRecon/Fingerprinting in Noisy Network Environments/data/same_device/same_plug/same_plug_cleaned_interaction/"
 path_to_same_plug_cleaned_no_interaction = "/home/nthom/Documents/SmartRecon/Fingerprinting in Noisy Network Environments/data/same_device/same_plug/same_plug_cleaned_no_interaction/"
@@ -41,7 +41,13 @@ elif device_list == 3:
 else:
     device_list = [1, 2, 3]
 
-accum_list = [128, 256, 512, 1024]
+accum_list = int(input("Select one of the following: \n128 \n256 \n512 \n 1024\n"))
+if not accum_list in [128, 256, 512, 1024]:
+    raise ValueError(
+        "'device_list' selection must be one of the following values: 1 or 2,"
+    )
+accum_list = [accum_list]
+# accum_list = [128, 256, 512, 1024]
 window_list = [4, 5, 6]
 
 all_params_best_model_performance = [["Device", "Accum", "Window", "Combo", "Model Name", "f1_micro", "accuracy",
@@ -173,7 +179,7 @@ for device in device_list:
                 shutil.rmtree(f"agModels-{name_of_current_data}_{gethostname()}")
 
                 output_df = pd.DataFrame(all_params_best_model_performance)
-                output_df.to_csv(f"{device}_allFlexHashParams_{gethostname()}.csv", index=False)
+                output_df.to_csv(f"{device}_{accum}_allFlexHashParams_{gethostname()}.csv", index=False)
 
             # break
         # break
