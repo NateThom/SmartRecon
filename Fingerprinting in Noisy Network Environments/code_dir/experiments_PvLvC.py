@@ -143,16 +143,17 @@ print("Summary of class variable: \n", train_dataset_td[label].describe())
 
 
 
-predictor = TabularPredictor(
-    eval_metric="f1_micro", label="class", path=model_save_path
-).fit(train_dataset_td, presets="best_quality")
-
-results = predictor.fit_summary()
+# predictor = TabularPredictor(
+#     eval_metric="f1_micro", label="class", path=model_save_path
+# ).fit(train_dataset_td, presets="best_quality")
+#
+# results = predictor.fit_summary()
 
 predictor = TabularPredictor.load(model_save_path)
 
 test_dataset_td = TabularDataset(test_dataset_df)
 y_test = test_dataset_td[label]
+print(y_test)
 test_data_noLabel = test_dataset_td.drop(columns=[label])
 
 y_pred = predictor.predict(test_data_noLabel)
@@ -160,7 +161,7 @@ perf = predictor.evaluate_predictions(
     y_true=y_test, y_pred=y_pred, auxiliary_metrics=True
 )
 
-leaderboard_df = predictor.leaderboard(test_dataset_td)
-leaderboard_df.to_csv(
-    f"agLeaderboard_{name_of_current_data}_{gethostname()}.csv"
-)
+# leaderboard_df = predictor.leaderboard(test_dataset_td)
+# leaderboard_df.to_csv(
+#     f"agLeaderboard_{name_of_current_data}_{gethostname()}.csv"
+# )

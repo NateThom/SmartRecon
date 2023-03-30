@@ -186,7 +186,7 @@ for device in device_list:
                 shutil.rmtree(f"agModels-{name_of_current_data}_{gethostname()}")
 
                 output_df = pd.DataFrame(all_params_best_model_performance)
-                output_df.to_csv(f"{device}_{accum}_allFlexHashParams_{gethostname()}.csv", index=False)
+                output_df.to_csv(f"{device}_{accum}_{window}_allFlexHashParams_{gethostname()}.csv", index=False)
 
             # break
         # break
