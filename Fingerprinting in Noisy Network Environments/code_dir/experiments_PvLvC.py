@@ -110,12 +110,13 @@ dataset["class"] = y_temp
 y = dataset["class"]
 
 x_train, x_test, y_train, y_test = train_test_split(
-    x.values, y.values, test_size=0.2, stratify=y.values
+    x.values, y.values, test_size=0.9, stratify=y.values
 )
 
 names = list(range(x_train.shape[1]))
 train_dataset_df = pd.DataFrame(x_train, columns=names)
 train_dataset_df.insert(train_dataset_df.shape[1], "class", y_train)
+
 
 names = list(range(x_test.shape[1]))
 test_dataset_df = pd.DataFrame(x_test, columns=names)
@@ -139,6 +140,8 @@ model_save_path = f"agModels-{name_of_current_data}_{gethostname()}"
 train_dataset_td = TabularDataset(train_dataset_df)
 label = "class"
 print("Summary of class variable: \n", train_dataset_td[label].describe())
+
+
 
 predictor = TabularPredictor(
     eval_metric="f1_micro", label="class", path=model_save_path
