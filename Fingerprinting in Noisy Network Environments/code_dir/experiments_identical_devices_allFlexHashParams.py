@@ -49,7 +49,7 @@ if not accum_list in [128, 256, 512, 1024]:
 accum_list = [accum_list]
 # accum_list = [128, 256, 512, 1024]
 
-window_list = int(input("Select one of the following: \n128 \n256 \n512 \n1024\n"))
+window_list = int(input("Select one of the following: \n4 \n5 \n6 \n"))
 if not window_list in [4, 5, 6]:
     raise ValueError(
         "'window_list' selection must be one of the following values: 4, 5, or 6"
