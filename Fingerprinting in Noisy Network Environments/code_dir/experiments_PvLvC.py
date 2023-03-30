@@ -110,7 +110,7 @@ dataset["class"] = y_temp
 y = dataset["class"]
 
 x_train, x_test, y_train, y_test = train_test_split(
-    x.values, y.values, test_size=0.9, stratify=y.values
+    x.values, y.values, test_size=0.2, stratify=y.values
 )
 
 names = list(range(x_train.shape[1]))
@@ -141,27 +141,52 @@ train_dataset_td = TabularDataset(train_dataset_df)
 label = "class"
 print("Summary of class variable: \n", train_dataset_td[label].describe())
 
+predictor = TabularPredictor(
+    eval_metric="f1_micro", label="class", path=model_save_path
+).fit(train_dataset_td, presets="best_quality")
 
-
-# predictor = TabularPredictor(
-#     eval_metric="f1_micro", label="class", path=model_save_path
-# ).fit(train_dataset_td, presets="best_quality")
-#
-# results = predictor.fit_summary()
+results = predictor.fit_summary()
 
 predictor = TabularPredictor.load(model_save_path)
 
+all_devices_best_model_performance = [[
+    "0_precision", "0_recall", "0_f1-score", "0_support",
+    "1_precision", "1_recall", "1_f1-score", "1_support",
+    "2_precision", "2_recall", "2_f1-score", "2_support",
+    "accuracy",
+    "macro_avg_precision", "macro_avg_recall", "macro_avg_f1-score", "macro_avg_support",
+    "weighted_avg_precision", "weighted_avg_recall", "weighted_avg_f1-score", "weighted_avg_support"
+]]
+
 test_dataset_td = TabularDataset(test_dataset_df)
-y_test = test_dataset_td[label]
-print(y_test)
-test_data_noLabel = test_dataset_td.drop(columns=[label])
+eval = predictor.evaluate(test_dataset_td, detailed_report=True, silent=False)
+# print(eval["classification_report"].keys())
+output_list = []
+for key in eval["classification_report"].keys():
+    if key in ["0", "1", "2", "macro avg", "weighted avg"]:
+        for key2 in eval["classification_report"][key].keys():
+            output_list.append(eval["classification_report"][key][key2])
+    else:
+        output_list.append(eval["classification_report"][key])
+all_devices_best_model_performance.append(output_list)
 
-y_pred = predictor.predict(test_data_noLabel)
-perf = predictor.evaluate_predictions(
-    y_true=y_test, y_pred=y_pred, auxiliary_metrics=True
-)
+# eval = predictor.evaluate(test_dataset_td[test_dataset_td["class"]==0], detailed_report=True, silent=False)
+# best_model_output_list = [accum, window, combo, 0]
+# for key in eval.keys():
+#     best_model_output_list.append(eval[key])
+# all_devices_best_model_performance.append(best_model_output_list)
+#
+# eval = predictor.evaluate(test_dataset_td[test_dataset_td["class"]==1], detailed_report=True, silent=False)
+# best_model_output_list = [accum, window, combo, 1]
+# for key in eval.keys():
+#     best_model_output_list.append(eval[key])
+# all_devices_best_model_performance.append(best_model_output_list)
+#
+# eval = predictor.evaluate(test_dataset_td[test_dataset_td["class"]==2], detailed_report=True, silent=False)
+# best_model_output_list = [accum, window, combo, 2]
+# for key in eval.keys():
+#     best_model_output_list.append(eval[key])
+# all_devices_best_model_performance.append(best_model_output_list)
 
-# leaderboard_df = predictor.leaderboard(test_dataset_td)
-# leaderboard_df.to_csv(
-#     f"agLeaderboard_{name_of_current_data}_{gethostname()}.csv"
-# )
+output_df = pd.DataFrame(all_devices_best_model_performance)
+output_df.to_csv(f"{accum}_{window}_{combo}_PvLvC_{gethostname()}.csv", index=False)
