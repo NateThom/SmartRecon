@@ -81,7 +81,8 @@ for i in tqdm(device_list):
         csv_list.append(target_dir + j)
 
 name_of_current_data = f"FlexHash-PvLvC-accum_{accum}-window_{window}-combo_{combo}-cleaned"
-dataset = combine_csv_category(csv_list, names)
+# dataset = combine_csv_category(csv_list, names)
+dataset = combine_csv(csv_list, names)
 dataset.reset_index(drop=True, inplace=True)
 
 print(f"*** Total samples in {name_of_current_data}: {len(dataset.index)} ***")
@@ -116,6 +117,13 @@ x_train, x_test, y_train, y_test = train_test_split(
 names = list(range(x_train.shape[1]))
 train_dataset_df = pd.DataFrame(x_train, columns=names)
 train_dataset_df.insert(train_dataset_df.shape[1], "class", y_train)
+
+if train_dataset_df["class"][0][:4] == "plug":
+    train_dataset_df["class"] = "plug"
+elif train_dataset_df["class"][0][:5] == "light":
+    train_dataset_df["class"] = "light"
+else:
+    train_dataset_df["class"] = "cam"
 
 
 names = list(range(x_test.shape[1]))
