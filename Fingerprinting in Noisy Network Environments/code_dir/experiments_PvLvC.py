@@ -118,13 +118,9 @@ names = list(range(x_train.shape[1]))
 train_dataset_df = pd.DataFrame(x_train, columns=names)
 train_dataset_df.insert(train_dataset_df.shape[1], "class", y_train)
 
-if train_dataset_df["class"][0][:4] == "plug":
-    train_dataset_df["class"] = "plug"
-elif train_dataset_df["class"][0][:5] == "light":
-    train_dataset_df["class"] = "light"
-else:
-    train_dataset_df["class"] = "cam"
-
+train_dataset_df[train_dataset_df["class"][:4] == "plug"] = "plug"
+train_dataset_df[train_dataset_df["class"][:5] == "light"] = "light"
+train_dataset_df[train_dataset_df["class"][:3] == "cam"] = "cam"
 
 names = list(range(x_test.shape[1]))
 test_dataset_df = pd.DataFrame(x_test, columns=names)
