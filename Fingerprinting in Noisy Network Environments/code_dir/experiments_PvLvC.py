@@ -98,15 +98,15 @@ x = dataset.drop(["class"], axis=1)
 # y_original is an unaltered list of all values in the class column
 y_original = dataset["class"].values.tolist()
 
-# y is a dataframe of only the class column and the values have been converted to numeric representation
-counter = 0
-y_temp = dataset["class"].tolist()
-for unique_value in sorted(dataset["class"].unique()):
-    for index, value in enumerate(dataset["class"]):
-        if value == unique_value:
-            y_temp[index] = counter
-    counter += 1
-dataset["class"] = y_temp
+# # y is a dataframe of only the class column and the values have been converted to numeric representation
+# counter = 0
+# y_temp = dataset["class"].tolist()
+# for unique_value in sorted(dataset["class"].unique()):
+#     for index, value in enumerate(dataset["class"]):
+#         if value == unique_value:
+#             y_temp[index] = counter
+#     counter += 1
+# dataset["class"] = y_temp
 
 y = dataset["class"]
 
@@ -118,9 +118,29 @@ names = list(range(x_train.shape[1]))
 train_dataset_df = pd.DataFrame(x_train, columns=names)
 train_dataset_df.insert(train_dataset_df.shape[1], "class", y_train)
 
-train_dataset_df[train_dataset_df["class"][:4] == "plug"] = "plug"
-train_dataset_df[train_dataset_df["class"][:5] == "light"] = "light"
-train_dataset_df[train_dataset_df["class"][:3] == "cam"] = "cam"
+query_string = "plug"
+# print(train_dataset_df["class"]=="cam-3")
+print(train_dataset_df["class"].str.startswith(query_string))
+# print(train_dataset_df[train_dataset_df["class"]=="cam-3"])
+print(train_dataset_df[train_dataset_df["class"].str.startswith(query_string)])
+print(train_dataset_df[train_dataset_df["class"].str.startswith(query_string)].index)
+
+# print(train_dataset_df[train_dataset_df["class"]])
+exit(0)
+
+# y is a dataframe of only the class column and the values have been converted to numeric representation
+counter = 0
+y_temp = dataset["class"].tolist()
+for unique_value in sorted(dataset["class"].unique()):
+    for index, value in enumerate(dataset["class"]):
+        if value == unique_value:
+            y_temp[index] = counter
+    counter += 1
+dataset["class"] = y_temp
+
+# train_dataset_df[train_dataset_df["class"][:4] == "plug"] = "plug"
+# train_dataset_df[train_dataset_df["class"][:5] == "light"] = "light"
+# train_dataset_df[train_dataset_df["class"][:3] == "cam"] = "cam"
 
 names = list(range(x_test.shape[1]))
 test_dataset_df = pd.DataFrame(x_test, columns=names)
