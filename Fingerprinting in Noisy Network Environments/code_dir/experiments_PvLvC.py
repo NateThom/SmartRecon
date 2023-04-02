@@ -111,7 +111,7 @@ y_original = dataset["class"].values.tolist()
 y = dataset["class"]
 
 x_train, x_test, y_train, y_test = train_test_split(
-    x.values, y.values, test_size=0.95, stratify=y.values
+    x.values, y.values, test_size=.8, stratify=y.values
 )
 
 names = list(range(x_train.shape[1]))
@@ -156,17 +156,17 @@ label = "class"
 print("Summary of class variable: \n", train_dataset_td[label].describe())
 
 predictor = TabularPredictor(
-    eval_metric="f1_micro", label="class", path=model_save_path
+    eval_metric="accuracy", label="class", path=model_save_path
 ).fit(
     train_dataset_td,
-    presets="best_quality",
+    presets="medium_quality",
     excluded_model_types=["CAT", "KNN", "RF", "FASTAI", "LR", "NN_TORCH", "AG_AUTOMM"],
-    keep_only_best=True
+    # keep_only_best=True
 )
 
-results = predictor.fit_summary()
+# results = predictor.fit_summary()
 
-predictor = TabularPredictor.load(model_save_path)
+# predictor = TabularPredictor.load(model_save_path)
 
 # all_devices_best_model_performance = [[
 #     "0_precision", "0_recall", "0_f1-score", "0_support",
@@ -194,6 +194,7 @@ for current_class in unique_classes:
     else:
         query_string = "cam"
 
+    print(f"Num Samples in test set for class {current_class}: {len(test_dataset_df[test_dataset_df['class']==current_class].index)}")
 
     current_test_dataset_df = TabularDataset(test_dataset_df[test_dataset_df["class"]==current_class])
     current_test_dataset_df.loc[
@@ -220,10 +221,26 @@ output_list_column_names.append(f"macro_average_precision")
 output_list_column_names.append(f"macro_average_recall")
 output_list_column_names.append(f"macro_average_f1")
 output_list_column_names.append(f"macro_average_support")
+
 output_list_column_names.append(f"weighted_average_precision")
 output_list_column_names.append(f"weighted_average_recall")
 output_list_column_names.append(f"weighted_average_f1")
 output_list_column_names.append(f"weighted_average_support")
+
+output_list_column_names.append(f"plug_average_precision")
+output_list_column_names.append(f"plug_average_recall")
+output_list_column_names.append(f"plug_average_f1")
+output_list_column_names.append(f"plug_average_support")
+
+output_list_column_names.append(f"light_average_precision")
+output_list_column_names.append(f"light_average_recall")
+output_list_column_names.append(f"light_average_f1")
+output_list_column_names.append(f"light_average_support")
+
+output_list_column_names.append(f"cam_average_precision")
+output_list_column_names.append(f"cam_average_recall")
+output_list_column_names.append(f"cam_average_f1")
+output_list_column_names.append(f"cam_average_support")
 
 eval = predictor.evaluate(test_dataset_td, detailed_report=True, silent=False)
 output_list.append(eval["classification_report"]["accuracy"])
@@ -235,6 +252,21 @@ output_list.append(eval["classification_report"]["weighted avg"]["precision"])
 output_list.append(eval["classification_report"]["weighted avg"]["recall"])
 output_list.append(eval["classification_report"]["weighted avg"]["f1-score"])
 output_list.append(eval["classification_report"]["weighted avg"]["support"])
+
+output_list.append(eval["classification_report"]["plug"]["precision"])
+output_list.append(eval["classification_report"]["plug"]["recall"])
+output_list.append(eval["classification_report"]["plug"]["f1-score"])
+output_list.append(eval["classification_report"]["plug"]["support"])
+
+output_list.append(eval["classification_report"]["light"]["precision"])
+output_list.append(eval["classification_report"]["light"]["recall"])
+output_list.append(eval["classification_report"]["light"]["f1-score"])
+output_list.append(eval["classification_report"]["light"]["support"])
+
+output_list.append(eval["classification_report"]["cam"]["precision"])
+output_list.append(eval["classification_report"]["cam"]["recall"])
+output_list.append(eval["classification_report"]["cam"]["f1-score"])
+output_list.append(eval["classification_report"]["cam"]["support"])
 
 print(eval)
 
