@@ -161,12 +161,11 @@ predictor = TabularPredictor(
     train_dataset_td,
     presets="medium_quality",
     excluded_model_types=["CAT", "KNN", "RF", "FASTAI", "LR", "NN_TORCH", "AG_AUTOMM"],
-    # keep_only_best=True
 )
 
-# results = predictor.fit_summary()
+results = predictor.fit_summary()
 
-# predictor = TabularPredictor.load(model_save_path)
+predictor = TabularPredictor.load(model_save_path)
 
 # all_devices_best_model_performance = [[
 #     "0_precision", "0_recall", "0_f1-score", "0_support",
@@ -182,9 +181,10 @@ output_list_column_names = []
 
 unique_classes = test_dataset_df["class"].unique()
 for current_class in unique_classes:
-    output_list_column_names.append(f"{current_class}_precision")
-    output_list_column_names.append(f"{current_class}_recall")
-    output_list_column_names.append(f"{current_class}_f1")
+    output_list_column_names.append(f"{current_class}_accuracy")
+    # output_list_column_names.append(f"{current_class}_precision")
+    # output_list_column_names.append(f"{current_class}_recall")
+    # output_list_column_names.append(f"{current_class}_f1")
     output_list_column_names.append(f"{current_class}_support")
 
     if current_class[:4] == "plug":
@@ -203,9 +203,10 @@ for current_class in unique_classes:
     current_test_dataset_td = TabularDataset(current_test_dataset_df)
     eval = predictor.evaluate(current_test_dataset_td, detailed_report=True, silent=False)
 
-    output_list.append(eval["classification_report"][query_string]["precision"])
-    output_list.append(eval["classification_report"][query_string]["recall"])
-    output_list.append(eval["classification_report"][query_string]["f1-score"])
+    output_list.append(eval["classification_report"]["accuracy"])
+    # output_list.append(eval["classification_report"][query_string]["precision"])
+    # output_list.append(eval["classification_report"][query_string]["recall"])
+    # output_list.append(eval["classification_report"][query_string]["f1-score"])
     output_list.append(eval["classification_report"][query_string]["support"])
 
     print(eval)
