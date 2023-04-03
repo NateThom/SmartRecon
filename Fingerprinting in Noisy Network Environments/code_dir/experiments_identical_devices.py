@@ -214,5 +214,7 @@ test_dataset_recall = recall_score(
 test_dataset_metric_df["Recall"] = test_dataset_recall
 print(test_dataset_metric_df)
 
-test_dataset_metric_df.to_csv(f"{accum}_{window}_{combo}_identicalDevices_{gethostname()}.csv", index=False)
+test_dataset_metric_df.to_csv(
+    f"{device}_{accum}_{window}_{combo}_identicalDevices_{gethostname()}.csv", index=False
+)
 
