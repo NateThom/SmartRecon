@@ -3,11 +3,11 @@ import os
 from socket import gethostname
 
 import pandas as pd
-from tqdm import tqdm
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix
 from autogluon.tabular import TabularDataset, TabularPredictor
 
-from utils import combine_csv, combine_csv_category
+from utils import combine_csv
 
 path_to_same_plug_cleaned_interaction = "/home/nthom/Documents/SmartRecon/Fingerprinting in Noisy Network Environments/data/same_device/same_plug/same_plug_cleaned_interaction/"
 path_to_same_plug_cleaned_no_interaction = "/home/nthom/Documents/SmartRecon/Fingerprinting in Noisy Network Environments/data/same_device/same_plug/same_plug_cleaned_no_interaction/"
@@ -108,22 +108,22 @@ for device_name in sorted(dataset["class"].unique()):
 x = dataset.drop(["class"], axis=1)
 
 # y_original is an unaltered list of all values in the class column
-y_original = dataset["class"].values.tolist()
+# y_original = dataset["class"].values.tolist()
 
 # y is a dataframe of only the class column and the values have been converted to numeric representation
-counter = 0
-y_temp = dataset["class"].tolist()
-for unique_value in sorted(dataset["class"].unique()):
-    for index, value in enumerate(dataset["class"]):
-        if value == unique_value:
-            y_temp[index] = counter
-    counter += 1
-dataset["class"] = y_temp
+# counter = 0
+# y_temp = dataset["class"].tolist()
+# for unique_value in sorted(dataset["class"].unique()):
+#     for index, value in enumerate(dataset["class"]):
+#         if value == unique_value:
+#             y_temp[index] = counter
+#     counter += 1
+# dataset["class"] = y_temp
 
 y = dataset["class"]
 
 x_train, x_test, y_train, y_test = train_test_split(
-    x.values, y.values, test_size=0.2, stratify=y.values
+    x.values, y.values, test_size=0.2, stratify=y.values, random_state=0
 )
 
 names = list(range(x_train.shape[1]))
@@ -137,14 +137,14 @@ test_dataset_df.insert(test_dataset_df.shape[1], "class", y_test)
 del (
     x,
     y,
-    y_original,
+    # y_original,
     x_train,
     y_train,
     x_test,
     y_test,
     names,
     dataset,
-    y_temp
+    # y_temp
 )
 
 model_save_path = f"agModels-{name_of_current_data}_{gethostname()}"
@@ -154,23 +154,65 @@ label = "class"
 print("Summary of class variable: \n", train_dataset_td[label].describe())
 
 predictor = TabularPredictor(
-    eval_metric="f1_micro", label="class", path=model_save_path
-).fit(train_dataset_td, presets="best_quality")
-
+    eval_metric="accuracy", label="class", path=model_save_path
+).fit(
+    train_dataset_td,
+    presets="best_quality",
+    excluded_model_types=["CAT", "KNN", "RF", "FASTAI", "LR", "NN_TORCH", "AG_AUTOMM"],
+    )
 results = predictor.fit_summary()
 
+#####
+test_dataset_metric_df = pd.DataFrame()
+unique_classes = sorted(test_dataset_df["class"].unique())
+test_dataset_metric_df["Device"] = unique_classes
+# print(test_dataset_metric_df)
+
 predictor = TabularPredictor.load(model_save_path)
-
 test_dataset_td = TabularDataset(test_dataset_df)
-y_test = test_dataset_td[label]
-test_data_noLabel = test_dataset_td.drop(columns=[label])
+test_dataset_predictions = predictor.predict(test_dataset_td)
 
-y_pred = predictor.predict(test_data_noLabel)
-perf = predictor.evaluate_predictions(
-    y_true=y_test, y_pred=y_pred, auxiliary_metrics=True
+test_dataset_matrix = confusion_matrix(
+    y_true=test_dataset_df["class"].values,
+    y_pred=test_dataset_predictions,
+    labels=unique_classes,
 )
 
-leaderboard_df = predictor.leaderboard(test_dataset_td)
-leaderboard_df.to_csv(
-    f"agLeaderboard_{name_of_current_data}_{gethostname()}.csv"
+test_dataset_metric_df["Accuracy"] = test_dataset_matrix.diagonal()/test_dataset_matrix.sum(axis=1)
+# print(test_dataset_metric_df)
+
+test_dataset_f1 = f1_score(
+    y_true=test_dataset_df["class"].values,
+    y_pred=test_dataset_predictions,
+    labels=unique_classes,
+    average=None
 )
+# print(test_dataset_f1)
+
+test_dataset_metric_df["F1"] = test_dataset_f1
+# print(test_dataset_metric_df)
+
+test_dataset_precision = precision_score(
+    y_true=test_dataset_df["class"].values,
+    y_pred=test_dataset_predictions,
+    labels=unique_classes,
+    average=None
+)
+# print(test_dataset_precision)
+
+test_dataset_metric_df["Precision"] = test_dataset_precision
+# print(test_dataset_metric_df)
+
+test_dataset_recall = recall_score(
+    y_true=test_dataset_df["class"].values,
+    y_pred=test_dataset_predictions,
+    labels=unique_classes,
+    average=None
+)
+# print(test_dataset_recall)
+
+test_dataset_metric_df["Recall"] = test_dataset_recall
+print(test_dataset_metric_df)
+
+test_dataset_metric_df.to_csv(f"{accum}_{window}_{combo}_identicalDevices_{gethostname()}.csv", index=False)
+
