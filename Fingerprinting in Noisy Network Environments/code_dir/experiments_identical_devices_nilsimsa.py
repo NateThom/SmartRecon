@@ -24,8 +24,6 @@ path_to_same_cam_cleaned_no_interaction = "/home/nthom/Documents/SmartRecon/Fing
 path_to_same_cam_uncleaned_interaction = "/home/nthom/Documents/SmartRecon/Fingerprinting in Noisy Network Environments/data/same_device/same_cam/same_cam_uncleaned_interaction/"
 path_to_same_cam_uncleaned_no_interaction = "/home/nthom/Documents/SmartRecon/Fingerprinting in Noisy Network Environments/data/same_device/same_cam/same_cam_uncleaned_no_interaction/"
 
-path_to_simhash = "/home/nthom/Documents/SmartRecon/Fingerprinting in Noisy Network Environments/data/simhashes/"
-
 device = int(
             input("Select one of the following: \n1. Plug \n2. Light \n3. Cam\n")
         )
@@ -37,7 +35,7 @@ if not device in [1, 2, 3]:
 if device == 1:
     device = "plug"
 elif device == 2:
-    device = "light"
+    device = "lightbulb"
 elif device == 3:
     device = "cam"
 
@@ -47,40 +45,8 @@ if not c_uc in [1, 2]:
         "'c_uc' selection must be one of the following values: 1 or 2,"
     )
 
-accum = int(
-        input(
-            "Select one of the following accumulator sizes: \n128 \n256 \n512 \n1024\n"
-        )
-    )
-if not accum in [128, 256, 512, 1024]:
-    raise ValueError(
-        "'accum' parameter must be one of the following values: 128, 256, 512 or 1024."
-    )
-
-names = [f"dim{i}" for i in range(accum//8)]
+names = [f"dim{i}" for i in range(32)]
 names.append("class")
-
-window = int(input("Select one of the following window sizes: \n4 \n5 \n6\n"))
-if not window in [4, 5, 6]:
-    raise ValueError(
-        "'window' parameter must be one of the following values:4, 5, or 6."
-    )
-if window == 4:
-    combo = int(
-        input("Select one of the following combination sizes: \n2 \n3 \n4\n")
-    )
-elif window == 5:
-    combo = int(
-        input(
-            "Select one of the following combination sizes: \n2 \n3 \n4 \n5\n"
-        )
-    )
-else:
-    combo = int(
-        input(
-            "Select one of the following combination sizes: \n2 \n3 \n4 \n5 \n6\n"
-        )
-    )
 
 if c_uc == 1:
     c_uc = "cleaned"
@@ -89,11 +55,12 @@ else:
 
 csv_list = []
 
-target_dir = f"{path_to_simhash}{device}/accum_{accum}/window_{window}/combo_{combo}/{c_uc}/"
+target_dir = f"/home/nthom/Documents/SmartRecon/Fingerprinting in Noisy Network Environments/data/same_device/" \
+                 f"same_{device}/same_{device}_{c_uc}_no_interaction/"
 for j in os.listdir(target_dir):
     csv_list.append(target_dir + j)
 
-name_of_current_data = f"FlexHash-identicalDevice-{device}-accum_{accum}-window_{window}-combo_{combo}-cleaned"
+name_of_current_data = f"nilsimsa-identicalDevice-{device}-{c_uc}"
 dataset = combine_csv(csv_list, names)
 dataset.reset_index(drop=True, inplace=True)
 
@@ -106,19 +73,6 @@ for device_name in sorted(dataset["class"].unique()):
 
 # x is the entire dataframe except for the class column
 x = dataset.drop(["class"], axis=1)
-
-# y_original is an unaltered list of all values in the class column
-# y_original = dataset["class"].values.tolist()
-
-# y is a dataframe of only the class column and the values have been converted to numeric representation
-# counter = 0
-# y_temp = dataset["class"].tolist()
-# for unique_value in sorted(dataset["class"].unique()):
-#     for index, value in enumerate(dataset["class"]):
-#         if value == unique_value:
-#             y_temp[index] = counter
-#     counter += 1
-# dataset["class"] = y_temp
 
 y = dataset["class"]
 
@@ -153,26 +107,23 @@ train_dataset_td = TabularDataset(train_dataset_df)
 label = "class"
 print("Summary of class variable: \n", train_dataset_td[label].describe())
 
-# predictor = TabularPredictor(
-#     eval_metric="accuracy", label="class", path=model_save_path
-# ).fit(
-#     train_dataset_td,
-#     presets="best_quality",
-#     excluded_model_types=["CAT", "KNN", "RF", "FASTAI", "LR", "NN_TORCH", "AG_AUTOMM"],
-#     )
-# results = predictor.fit_summary()
+predictor = TabularPredictor(
+    eval_metric="accuracy", label="class", path=model_save_path
+).fit(
+    train_dataset_td,
+    presets="best_quality",
+    excluded_model_types=["CAT", "KNN", "RF", "FASTAI", "LR", "NN_TORCH", "AG_AUTOMM"],
+    )
+results = predictor.fit_summary()
 
 #####
 test_dataset_metric_df = pd.DataFrame()
 unique_classes = sorted(test_dataset_df["class"].unique())
-# test_dataset_metric_df["Device"] = unique_classes
-# print(test_dataset_metric_df)
 
 # models_to_predict = ["ExtraTreesEntr_BAG_L2", "ExtraTreesGini_BAG_L2"]
 predictor = TabularPredictor.load(model_save_path)
 test_dataset_td = TabularDataset(test_dataset_df)
-# test_dataset_predictions = predictor.predict_multi(test_dataset_td, models=models_to_predict)
-test_dataset_predictions = predictor.predict_multi(test_dataset_td, models=None)
+test_dataset_predictions = predictor.predict_multi(test_dataset_td, models=models_to_predict)
 print(test_dataset_predictions)
 
 accuracy_list = []
@@ -246,6 +197,6 @@ test_dataset_metric_df["Recall"] = recall_list
 test_dataset_metric_df["Device"] = device_list
 
 test_dataset_metric_df.to_csv(
-    f"{device}_{accum}_{window}_{combo}_identicalDevices_{gethostname()}.csv", index=False
+    f"{device}_nilsimsa_identicalDevices_{gethostname()}.csv", index=False
 )
 
