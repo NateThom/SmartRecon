@@ -120,7 +120,8 @@ filtered_dataset = dataset.loc[dataset['class'] != 'iot_noise']
 filtered_dataset = filtered_dataset.loc[dataset['class'] != 'network_noise']
 n_iot_noise_dataset = dataset.loc[dataset['class'] == 'iot_noise'][:total_non_noise_device_count]
 n_network_noise_dataset = dataset.loc[dataset['class'] == 'network_noise'][:total_non_noise_device_count]
-dataset = pd.DataFrame.append((filtered_dataset, n_iot_noise_dataset, n_network_noise_dataset))
+dataset = pd.DataFrame()
+dataset = dataset.append((filtered_dataset, n_iot_noise_dataset, n_network_noise_dataset))
 
 print(f"*** Total samples in {name_of_current_data}: {len(dataset.index)} ***")
 for device_name in sorted(dataset["class"].unique()):
