@@ -124,7 +124,7 @@ dataset = pd.concat((filtered_dataset, n_iot_noise_dataset, n_network_noise_data
 
 query_string_list = ["iot_noise", "network_noise"]
 for query_string in query_string_list:
-    dataset.loc[dataset[dataset["class"].str.startswith(query_string)].index, "class"] = query_string
+    dataset.loc[dataset[dataset["class"].str.startswith(query_string)].index, "class"] = "noise"
 
 print(f"*** Total samples in {name_of_current_data}: {len(dataset.index)} ***")
 for device_name in sorted(dataset["class"].unique()):
