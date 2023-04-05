@@ -3,6 +3,7 @@ import os
 from socket import gethostname
 
 import pandas as pd
+from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix
 from autogluon.tabular import TabularDataset, TabularPredictor
