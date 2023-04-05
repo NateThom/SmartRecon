@@ -206,7 +206,7 @@ for model in tqdm(test_dataset_predictions.keys()):
     average_recall /=8
     recall_list.append(average_recall)
 
-print(model_list, accuracy_list)
+# print(model_list, accuracy_list)
 
 test_dataset_metric_df["Model"] = model_list
 test_dataset_metric_df["Accuracy"] = accuracy_list
