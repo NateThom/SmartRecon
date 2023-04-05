@@ -136,6 +136,9 @@ device_list = []
 for model in tqdm(test_dataset_predictions.keys()):
     for value in unique_classes:
         device_list.append(value)
+        model_list.append(model)
+    device_list.append("all")
+    model_list.append("all")
 
     test_dataset_matrix = confusion_matrix(
         y_true=test_dataset_df["class"].values,
@@ -145,9 +148,12 @@ for model in tqdm(test_dataset_predictions.keys()):
 
     # test_dataset_metric_df["Accuracy"] = test_dataset_matrix.diagonal()/test_dataset_matrix.sum(axis=1)
     # print(test_dataset_metric_df)
+    average_accuracy = 0
     for value in test_dataset_matrix.diagonal()/test_dataset_matrix.sum(axis=1):
         accuracy_list.append(value)
-        model_list.append(model)
+        average_accuracy += value
+    average_accuracy /= 8
+    accuracy_list.append(average_accuracy)
 
     test_dataset_f1 = f1_score(
         y_true=test_dataset_df["class"].values,
@@ -159,8 +165,12 @@ for model in tqdm(test_dataset_predictions.keys()):
 
     # test_dataset_metric_df["F1"] = test_dataset_f1
     # print(test_dataset_metric_df)
+    average_f1 = 0
     for value in test_dataset_f1:
         f1_list.append(value)
+        average_f1 += value
+    average_f1 /= 8
+    f1_list.append(average_f1)
 
     test_dataset_precision = precision_score(
         y_true=test_dataset_df["class"].values,
@@ -172,8 +182,12 @@ for model in tqdm(test_dataset_predictions.keys()):
 
     # test_dataset_metric_df["Precision"] = test_dataset_precision
     # print(test_dataset_metric_df)
+    average_precision = 0
     for value in test_dataset_precision:
         precision_list.append(value)
+        average_precision += value
+    average_precision /=8
+    precision_list.append(average_precision)
 
     test_dataset_recall = recall_score(
         y_true=test_dataset_df["class"].values,
@@ -185,8 +199,12 @@ for model in tqdm(test_dataset_predictions.keys()):
 
     # test_dataset_metric_df["Recall"] = test_dataset_recall
     # print(test_dataset_metric_df)
+    average_recall = 0
     for value in test_dataset_recall:
         recall_list.append(value)
+        average_recall += value
+    average_recall /=8
+    recall_list.append(average_recall)
 
 print(model_list, accuracy_list)
 
