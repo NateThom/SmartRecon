@@ -275,6 +275,6 @@ test_dataset_metric_df["Recall"] = recall_list
 test_dataset_metric_df["Device"] = device_list
 
 test_dataset_metric_df.to_csv(
-    f"{device}_{accum}_{window}_{combo}_identicalDevices_noise_{gethostname()}.csv", index=False
+    f"{device}_{accum}_{window}_{combo}_identicalDevices_combined_noise_{gethostname()}.csv", index=False
 )
 
