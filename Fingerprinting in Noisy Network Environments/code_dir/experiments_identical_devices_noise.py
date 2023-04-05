@@ -29,7 +29,7 @@ elif device == 3:
     device = "cam"
 
 noise = int(
-            input("Select one of the following: \n1. Random \n2. IoT \n3. Network\n")
+            input("Select one of the following: \n1. IoT \n2. Network\n")
         )
 if not noise in [1, 2]:
     raise ValueError(
