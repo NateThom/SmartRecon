@@ -3,6 +3,7 @@ import os
 from socket import gethostname
 
 import pandas as pd
+from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix
 from autogluon.tabular import TabularDataset, TabularPredictor
@@ -132,7 +133,7 @@ precision_list = []
 recall_list = []
 model_list = []
 device_list = []
-for model in test_dataset_predictions.keys():
+for model in tqdm(test_dataset_predictions.keys()):
     for value in unique_classes:
         device_list.append(value)
 
