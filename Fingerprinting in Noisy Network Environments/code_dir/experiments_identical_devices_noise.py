@@ -107,6 +107,22 @@ dataset = combine_csv(csv_list, names)
 dataset.reset_index(drop=True, inplace=True)
 
 print(f"*** Total samples in {name_of_current_data}: {len(dataset.index)} ***")
+total_non_noise_device_count = 0
+for device_name in sorted(dataset["class"].unique()):
+    num_samples = len((dataset[dataset["class"] == device_name]).index)
+    if device_name not in ["iot_noise", "network_noise"]:
+        total_non_noise_device_count += num_samples
+    print(
+        f"*** Samples for device: {device_name} in {name_of_current_data}: {num_samples} ({num_samples/dataset.shape[0]}%) ***"
+    )
+
+filtered_dataset = dataset.loc[dataset['class'] != 'iot_noise']
+filtered_dataset = filtered_dataset.loc[dataset['class'] != 'network_noise']
+n_iot_noise_dataset = dataset.loc[dataset['class'] == 'iot_noise'][:total_non_noise_device_count]
+n_network_noise_dataset = dataset.loc[dataset['class'] == 'network_noise'][:total_non_noise_device_count]
+dataset = pd.DataFrame.append(filtered_dataset, n_iot_noise_dataset, n_network_noise_dataset)
+
+print(f"*** Total samples in {name_of_current_data}: {len(dataset.index)} ***")
 for device_name in sorted(dataset["class"].unique()):
     num_samples = len((dataset[dataset["class"] == device_name]).index)
     print(
