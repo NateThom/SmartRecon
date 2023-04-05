@@ -173,7 +173,7 @@ predictor = TabularPredictor.load(model_save_path)
 test_dataset_td = TabularDataset(test_dataset_df)
 # test_dataset_predictions = predictor.predict_multi(test_dataset_td, models=models_to_predict)
 test_dataset_predictions = predictor.predict_multi(test_dataset_td, models=None)
-print(test_dataset_predictions)
+# print(test_dataset_predictions)
 
 accuracy_list = []
 f1_list = []
@@ -236,7 +236,7 @@ for model in test_dataset_predictions.keys():
     for value in test_dataset_recall:
         recall_list.append(value)
 
-print(model_list, accuracy_list)
+# print(model_list, accuracy_list)
 
 test_dataset_metric_df["Model"] = model_list
 test_dataset_metric_df["Accuracy"] = accuracy_list
