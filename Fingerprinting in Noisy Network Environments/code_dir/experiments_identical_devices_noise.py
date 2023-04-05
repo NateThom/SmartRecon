@@ -149,22 +149,19 @@ train_dataset_td = TabularDataset(train_dataset_df)
 label = "class"
 print("Summary of class variable: \n", train_dataset_td[label].describe())
 
-# predictor = TabularPredictor(
-#     eval_metric="accuracy", label="class", path=model_save_path
-# ).fit(
-#     train_dataset_td,
-#     presets="best_quality",
-#     excluded_model_types=["CAT", "KNN", "RF", "FASTAI", "LR", "NN_TORCH", "AG_AUTOMM"],
-#     )
-# results = predictor.fit_summary()
+predictor = TabularPredictor(
+    eval_metric="accuracy", label="class", path=model_save_path
+).fit(
+    train_dataset_td,
+    presets="best_quality",
+    excluded_model_types=["CAT", "KNN", "RF", "FASTAI", "LR", "NN_TORCH", "AG_AUTOMM"],
+    )
+results = predictor.fit_summary()
 
 #####
 test_dataset_metric_df = pd.DataFrame()
 unique_classes = sorted(test_dataset_df["class"].unique())
-# test_dataset_metric_df["Device"] = unique_classes
-# print(test_dataset_metric_df)
 
-# models_to_predict = ["ExtraTreesEntr_BAG_L2", "ExtraTreesGini_BAG_L2"]
 predictor = TabularPredictor.load(model_save_path)
 test_dataset_td = TabularDataset(test_dataset_df)
 test_dataset_predictions = predictor.predict_multi(test_dataset_td, models=None)
