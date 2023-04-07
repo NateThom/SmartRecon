@@ -195,4 +195,4 @@ output_list.append(eval["accuracy"])
 output_list.append(eval["classification_report"]["accuracy"])
 
 output_df = pd.DataFrame([output_list_column_names, output_list])
-output_df.to_csv(f"{accum}_{window}_{combo}_PvLvC_{gethostname()}.csv", index=False)
+output_df.to_csv(f"{accum}_{window}_{combo}_PvLvC-separate_noise_{gethostname()}.csv", index=False)
