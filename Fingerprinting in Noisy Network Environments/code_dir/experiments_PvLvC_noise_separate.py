@@ -143,15 +143,15 @@ train_dataset_td = TabularDataset(train_dataset_df)
 label = "class"
 print("Summary of class variable: \n", train_dataset_td[label].describe())
 
-# predictor = TabularPredictor(
-#     eval_metric="accuracy", label="class", path=model_save_path
-# ).fit(
-#     train_dataset_td,
-#     presets="medium_quality",
-#     excluded_model_types=["CAT", "KNN", "RF", "FASTAI", "LR", "NN_TORCH", "AG_AUTOMM"],
-# )
+predictor = TabularPredictor(
+    eval_metric="accuracy", label="class", path=model_save_path
+).fit(
+    train_dataset_td,
+    presets="medium_quality",
+    excluded_model_types=["CAT", "KNN", "RF", "FASTAI", "LR", "NN_TORCH", "AG_AUTOMM"],
+)
 
-# results = predictor.fit_summary()
+results = predictor.fit_summary()
 
 test_dataset_metric_df = pd.DataFrame()
 
