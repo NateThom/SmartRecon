@@ -1,0 +1,112 @@
+name: light_oneRunTest_identicalDevices
+mode: TrainAndTest
+model_quality: best_quality
+downsample:
+    stratify_by: class
+    # sample_ratio: 1.
+    # sample_ratio: "minimum"
+    sample_ratio: "SelectMaxN"
+    MaxN: 30078
+data:
+    to_skip:
+        - "128_4_2"
+        - "128_4_3"
+        - "128_4_4"
+        - "128_5_2"
+        - "128_5_3"
+        - "128_5_5"
+        - "128_6_2"
+        - "128_6_3"
+        - "128_6_4"
+        - "128_6_5"
+        - "128_6_6"
+        - "256_4_2"
+        - "256_4_3"
+        - "256_4_4"
+        - "256_5_2"
+        - "256_5_3"
+        - "256_5_4"
+        - "256_5_5"
+        - "256_6_2"
+        - "256_6_3"
+        - "256_6_4"
+        - "256_6_5"
+        - "256_6_6"
+        - "512_4_2"
+        - "512_4_3"
+        - "512_4_4"
+        - "512_5_2"
+        - "512_5_3"
+        - "512_5_4"
+        - "512_5_5"
+        - "512_6_2"
+        - "512_6_3"
+        - "512_6_4"
+        - "512_6_5"
+        - "512_6_6"
+        - "1024_4_2"
+        - "1024_4_3"
+        - "1024_4_4"
+        - "1024_5_2"
+        - "1024_5_3"
+        - "1024_5_4"
+        - "1024_5_5"
+        - "1024_6_3"
+        - "1024_6_4"
+        - "1024_6_5"
+        - "1024_6_6"
+    accumulator: 
+        - 1024
+    window:
+        - 6
+    classes:
+    - class:
+        label: light-1_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: light_cleaned/
+        device: light-1
+    - class: 
+        label: light-2_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: light_cleaned/
+        device: light-2
+    - class: 
+        label: light-3_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: light_cleaned/
+        device: light-3
+    - class: 
+        label: light-4_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: light_cleaned/
+        device: light-4
+    - class: 
+        label: light-5_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: light_cleaned/
+        device: light-5
+    - class:
+        label: light-6_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: light_cleaned/
+        device: light-6
+    - class: 
+        label: light-7_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: light_cleaned/
+        device: light-7
+    - class: 
+        label: light-8_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: light_cleaned/
+        device: light-8
+    - class: 
+        label: network_noise
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/noise_Hashes/
+        path_to_inner_data_dir: network_noise_cleaned/
+        device: network_noise_cleaned
+    - class: 
+        label: iot_noise
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/noise_Hashes/
+        path_to_inner_data_dir: iot_noise_cleaned/
+        device: iot_noise_cleaned

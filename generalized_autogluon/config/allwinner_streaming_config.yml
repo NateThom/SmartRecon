@@ -1,0 +1,69 @@
+name: cam_allwinner_streaming_identicalDevices_withNoise
+mode: TrainAndTest
+model_quality: best_quality
+downsample:
+    stratify_by: class
+    sample_ratio: 0.1
+    # sample_ratio: "minimum"
+data:
+    to_skip: []
+    accumulator: 
+        - 128
+        - 256
+        - 512
+        - 1024
+    window: 
+        - 4
+        - 5
+        - 6
+    classes:
+    - class:
+        label: cam_allwinner_streaming-1_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: cam_allwinner_streaming_cleaned/
+        device: cam_allwinner_streaming-1
+    - class: 
+        label: cam_allwinner_streaming-2_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: cam_allwinner_streaming_cleaned/
+        device: cam_allwinner_streaming-2
+    - class: 
+        label: cam_allwinner_streaming-3_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: cam_allwinner_streaming_cleaned/
+        device: cam_allwinner_streaming-3
+    - class: 
+        label: cam_allwinner_streaming-4_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: cam_allwinner_streaming_cleaned/
+        device: cam_allwinner_streaming-4
+    - class: 
+        label: cam_allwinner_streaming-5_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: cam_allwinner_streaming_cleaned/
+        device: cam_allwinner_streaming-5
+    - class:
+        label: cam_allwinner_streaming-6_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: cam_allwinner_streaming_cleaned/
+        device: cam_allwinner_streaming-6
+    - class: 
+        label: cam_allwinner_streaming-7_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: cam_allwinner_streaming_cleaned/
+        device: cam_allwinner_streaming-7
+    - class: 
+        label: cam_allwinner_streaming-8_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: cam_allwinner_streaming_cleaned/
+        device: cam_allwinner_streaming-8
+    - class: 
+        label: network_noise
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/noise_Hashes/
+        path_to_inner_data_dir: network_noise_cleaned/
+        device: network_noise_cleaned
+    - class: 
+        label: iot_noise
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/noise_Hashes/
+        path_to_inner_data_dir: iot_noise_cleaned/
+        device: iot_noise_cleaned

@@ -1,0 +1,62 @@
+name: light_identicalDevices
+mode: TrainAndTest
+model_quality: best_quality
+downsample:
+    stratify_by: class
+    # sample_ratio: 1.
+    # sample_ratio: "minimum"
+    sample_ratio: "SelectMaxN"
+    MaxN: 20000
+data:
+    to_skip: []
+    accumulator: 
+        - 128
+        - 256
+        - 512
+        - 1024
+    window: 
+        - 4
+        - 5
+        - 6
+    classes:
+    - class:
+        label: light-1_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: light_cleaned/
+        device: light-1
+    - class: 
+        label: light-2_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: light_cleaned/
+        device: light-2
+    - class: 
+        label: light-3_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: light_cleaned/
+        device: light-3
+    - class: 
+        label: light-4_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: light_cleaned/
+        device: light-4
+    - class: 
+        label: light-5_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: light_cleaned/
+        device: light-5
+    - class:
+        label: light-6_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: light_cleaned/
+        device: light-6
+    - class: 
+        label: light-7_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: light_cleaned/
+        device: light-7
+    - class: 
+        label: light-8_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: light_cleaned/
+        device: light-8
+

@@ -1,0 +1,59 @@
+name: plug_identicalDevices
+mode: TrainAndTest
+model_quality: best_quality
+downsample:
+    stratify_by: class
+    # sample_ratio: 1.
+    sample_ratio: "minimum"
+data:
+    to_skip: []
+    accumulator: 
+        - 128
+        - 256
+        - 512
+        - 1024
+    window: 
+        - 4
+        - 5
+        - 6
+    classes:
+    - class:
+        label: plug-1_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: plug_cleaned/
+        device: plug-1
+    - class: 
+        label: plug-2_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: plug_cleaned/
+        device: plug-2
+    - class: 
+        label: plug-3_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: plug_cleaned/
+        device: plug-3
+    - class: 
+        label: plug-4_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: plug_cleaned/
+        device: plug-4
+    - class: 
+        label: plug-5_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: plug_cleaned/
+        device: plug-5
+    - class:
+        label: plug-6_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: plug_cleaned/
+        device: plug-6
+    - class: 
+        label: plug-7_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: plug_cleaned/
+        device: plug-7
+    - class: 
+        label: plug-8_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: plug_cleaned/
+        device: plug-8

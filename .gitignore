@@ -1,0 +1,47 @@
+
+# Python
+*__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+
+# Virtual environment
+*venv/
+*env/
+*.env
+
+# IDE-specific files
+*.idea/
+*.vscode/
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# C extensions
+*.so
+*.dll
+*.pyd
+*.pyo
+
+# Distribution / packaging
+*dist/
+*build/
+*eggs/
+*.egg-info/
+
+# Compiled Python files
+*.pyc
+*.pyo
+
+# Miscellaneous
+*.DS_Store
+*Thumbs.db
+*models/
+*.eps
+*.png
+*.pdf
+*train_data.csv
+*test_data.csv

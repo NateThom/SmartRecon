@@ -4,6 +4,7 @@ from socket import gethostname
 import pandas as pd
 from tqdm import tqdm
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix
 from autogluon.tabular import TabularDataset, TabularPredictor
 
 from utils import combine_csv
@@ -152,47 +153,149 @@ predictor = TabularPredictor(
 
 results = predictor.fit_summary()
 
+test_dataset_metric_df = pd.DataFrame()
+
 predictor = TabularPredictor.load(model_save_path)
-
-output_list = []
-output_list_column_names = []
-
-unique_classes = test_dataset_df["class"].unique()
-for current_class in unique_classes:
-    output_list_column_names.append(f"{current_class}_accuracy")
-    output_list_column_names.append(f"{current_class}_support")
-
-    if current_class[:4] == "plug":
-        query_string = "plug"
-    elif current_class[:5] == "light":
-        query_string = "light"
-    elif current_class[:5] == "cam":
-        query_string = "cam"
-
-    print(f"Num Samples in test set for class {current_class}: {len(test_dataset_df[test_dataset_df['class']==current_class].index)}")
-
-    current_test_dataset_df = TabularDataset(test_dataset_df[test_dataset_df["class"]==current_class])
-    current_test_dataset_df.loc[
-        current_test_dataset_df[current_test_dataset_df["class"].str.startswith(query_string)].index, "class"] = query_string
-
-    current_test_dataset_td = TabularDataset(current_test_dataset_df)
-    eval = predictor.evaluate(current_test_dataset_td, detailed_report=True, silent=False)
-
-    output_list.append(eval["classification_report"]["accuracy"])
-    output_list.append(eval["classification_report"][query_string]["support"])
 
 query_string_list = ["plug", "light", "cam"]
 for query_string in query_string_list:
     test_dataset_df.loc[test_dataset_df[test_dataset_df["class"].str.startswith(query_string)].index, "class"] = query_string
+unique_classes = sorted(test_dataset_df["class"].unique())
 
 test_dataset_td = TabularDataset(test_dataset_df)
 
-output_list_column_names.append(f"accuracy")
-output_list_column_names.append(f"accuracy classification report")
+test_dataset_predictions = predictor.predict_multi(test_dataset_td, models=None)
 
-eval = predictor.evaluate(test_dataset_td, detailed_report=True, silent=False)
-output_list.append(eval["accuracy"])
-output_list.append(eval["classification_report"]["accuracy"])
+accuracy_list = []
+f1_list = []
+precision_list = []
+recall_list = []
+model_list = []
+device_list = []
+for model in tqdm(test_dataset_predictions.keys()):
+    for value in unique_classes:
+        device_list.append(value)
+        model_list.append(model)
+    device_list.append("all")
+    model_list.append(model)
 
-output_df = pd.DataFrame([output_list_column_names, output_list])
-output_df.to_csv(f"{accum}_{window}_{combo}_PvLvC-separate_noise_{gethostname()}.csv", index=False)
+    test_dataset_matrix = confusion_matrix(
+        y_true=test_dataset_df["class"].values,
+        y_pred=test_dataset_predictions[model],
+        labels=unique_classes,
+    )
+
+    # test_dataset_metric_df["Accuracy"] = test_dataset_matrix.diagonal()/test_dataset_matrix.sum(axis=1)
+    # print(test_dataset_metric_df)
+    average_accuracy = 0
+    for value in test_dataset_matrix.diagonal() / test_dataset_matrix.sum(axis=1):
+        accuracy_list.append(value)
+        average_accuracy += value
+    average_accuracy /= len(test_dataset_matrix.diagonal() / test_dataset_matrix.sum(axis=1))
+    accuracy_list.append(average_accuracy)
+
+    test_dataset_f1 = f1_score(
+        y_true=test_dataset_df["class"].values,
+        y_pred=test_dataset_predictions[model],
+        labels=unique_classes,
+        average=None
+    )
+    # print(test_dataset_f1)
+
+    # test_dataset_metric_df["F1"] = test_dataset_f1
+    # print(test_dataset_metric_df)
+    average_f1 = 0
+    for value in test_dataset_f1:
+        f1_list.append(value)
+        average_f1 += value
+    average_f1 /= len(test_dataset_f1)
+    f1_list.append(average_f1)
+
+    test_dataset_precision = precision_score(
+        y_true=test_dataset_df["class"].values,
+        y_pred=test_dataset_predictions[model],
+        labels=unique_classes,
+        average=None
+    )
+    # print(test_dataset_precision)
+
+    # test_dataset_metric_df["Precision"] = test_dataset_precision
+    # print(test_dataset_metric_df)
+    average_precision = 0
+    for value in test_dataset_precision:
+        precision_list.append(value)
+        average_precision += value
+    average_precision /= len(test_dataset_precision)
+    precision_list.append(average_precision)
+
+    test_dataset_recall = recall_score(
+        y_true=test_dataset_df["class"].values,
+        y_pred=test_dataset_predictions[model],
+        labels=unique_classes,
+        average=None
+    )
+    # print(test_dataset_recall)
+
+    # test_dataset_metric_df["Recall"] = test_dataset_recall
+    # print(test_dataset_metric_df)
+    average_recall = 0
+    for value in test_dataset_recall:
+        recall_list.append(value)
+        average_recall += value
+    average_recall /= len(test_dataset_recall)
+    recall_list.append(average_recall)
+
+# print(model
+test_dataset_metric_df["Model"] = model_list
+test_dataset_metric_df["Accuracy"] = accuracy_list
+test_dataset_metric_df["F1"] = f1_list
+test_dataset_metric_df["Precision"] = precision_list
+test_dataset_metric_df["Recall"] = recall_list
+test_dataset_metric_df["Device"] = device_list
+
+test_dataset_metric_df.to_csv(
+    f"{accum}_{window}_{combo}_PvLvC_separate_noise_{gethostname()}.csv", index=False
+)
+
+# output_list = []
+# output_list_column_names = []
+#
+# unique_classes = test_dataset_df["class"].unique()
+# for current_class in unique_classes:
+#     output_list_column_names.append(f"{current_class}_accuracy")
+#     output_list_column_names.append(f"{current_class}_support")
+#
+#     if current_class[:4] == "plug":
+#         query_string = "plug"
+#     elif current_class[:5] == "light":
+#         query_string = "light"
+#     elif current_class[:5] == "cam":
+#         query_string = "cam"
+#
+#     print(f"Num Samples in test set for class {current_class}: {len(test_dataset_df[test_dataset_df['class']==current_class].index)}")
+#
+#     current_test_dataset_df = TabularDataset(test_dataset_df[test_dataset_df["class"]==current_class])
+#     current_test_dataset_df.loc[
+#         current_test_dataset_df[current_test_dataset_df["class"].str.startswith(query_string)].index, "class"] = query_string
+#
+#     current_test_dataset_td = TabularDataset(current_test_dataset_df)
+#     eval = predictor.evaluate(current_test_dataset_td, detailed_report=True, silent=False)
+#
+#     output_list.append(eval["classification_report"]["accuracy"])
+#     output_list.append(eval["classification_report"][query_string]["support"])
+#
+# query_string_list = ["plug", "light", "cam"]
+# for query_string in query_string_list:
+#     test_dataset_df.loc[test_dataset_df[test_dataset_df["class"].str.startswith(query_string)].index, "class"] = query_string
+#
+# test_dataset_td = TabularDataset(test_dataset_df)
+#
+# output_list_column_names.append(f"accuracy")
+# output_list_column_names.append(f"accuracy classification report")
+#
+# eval = predictor.evaluate(test_dataset_td, detailed_report=True, silent=False)
+# output_list.append(eval["accuracy"])
+# output_list.append(eval["classification_report"]["accuracy"])
+#
+# output_df = pd.DataFrame([output_list_column_names, output_list])
+# output_df.to_csv(f"{accum}_{window}_{combo}_PvLvC-separate_noise_{gethostname()}.csv", index=False)

@@ -1,0 +1,60 @@
+name: cam_allwinner_identicalDevices
+mode: TrainAndTest
+model_quality: best_quality
+downsample:
+    stratify_by: class
+    # sample_ratio: 0.001
+    sample_ratio: "minimum"
+data:
+    to_skip: []
+    accumulator: 
+        - 128
+        - 256
+        - 512
+        - 1024
+    window: 
+        - 4
+        - 5
+        - 6
+    classes:
+    - class:
+        label: cam_allwinner-1_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: cam_allwinner_cleaned/
+        device: cam_allwinner-1
+    - class: 
+        label: cam_allwinner-2_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: cam_allwinner_cleaned/
+        device: cam_allwinner-2
+    - class: 
+        label: cam_allwinner-3_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: cam_allwinner_cleaned/
+        device: cam_allwinner-3
+    - class: 
+        label: cam_allwinner-4_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: cam_allwinner_cleaned/
+        device: cam_allwinner-4
+    - class: 
+        label: cam_allwinner-5_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: cam_allwinner_cleaned/
+        device: cam_allwinner-5
+    - class:
+        label: cam_allwinner-6_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: cam_allwinner_cleaned/
+        device: cam_allwinner-6
+    - class: 
+        label: cam_allwinner-7_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: cam_allwinner_cleaned/
+        device: cam_allwinner-7
+    - class: 
+        label: cam_allwinner-8_cleaned
+        path_to_outer_data_dir: /storage/nate/SmartRecon/FlexHash/similar_devices_Hashes/
+        path_to_inner_data_dir: cam_allwinner_cleaned/
+        device: cam_allwinner-8
+
